@@ -1,0 +1,15 @@
+.gitconfig
+/GeneratedFiles/
+/libsgl/libsgl.vcxproj.user
+/libsgl/Release/
+/plugins/NVIDIA/GeneratedFiles/
+/plugins/NVIDIA/Release/
+/plugins/NVIDIA/NVIDIA.vcxproj.user
+/Release/
+sourceGameLounge.opensdf
+sourceGameLounge.sdf
+sourceGameLounge.v12.suo
+sourceGameLounge.vcxproj.user
+/Win32/Release/plugins/
+/Win32/Release/sgl.dll
+/Win32/Release/sourceGameLounge.exe

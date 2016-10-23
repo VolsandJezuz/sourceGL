@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sourceGameLounge", "sourceGameLounge.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NVIDIA", "plugins\NVIDIA\NVIDIA.vcxproj", "{92F3630E-8B8B-467D-9704-D6E17707BE6D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsgl", "libsgl\libsgl.vcxproj", "{79414699-BFDF-4DFD-9561-332A9339C6BF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.ActiveCfg = Release|Win32
+		{B12702AD-ABFB-343A-A199-8E24837244A3}.Release|Win32.Build.0 = Release|Win32
+		{92F3630E-8B8B-467D-9704-D6E17707BE6D}.Release|Win32.ActiveCfg = Release|Win32
+		{92F3630E-8B8B-467D-9704-D6E17707BE6D}.Release|Win32.Build.0 = Release|Win32
+		{79414699-BFDF-4DFD-9561-332A9339C6BF}.Release|Win32.ActiveCfg = Release|Win32
+		{79414699-BFDF-4DFD-9561-332A9339C6BF}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

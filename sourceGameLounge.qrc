@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="sourceGameLounge">
+    <file>images/programSettingsIcon.png</file>
+    <file>images/helpIcon.png</file>
+    <file>images/exitIcon.png</file>
+    <file>images/updateIcon.png</file>
+    <file>images/aboutIcon.png</file>
+    <file>images/gameSettingsIcon.png</file>
+    <file>images/mainBarIcon.png</file>
+    <file>images/gamesIcon.png</file>
+  </qresource>
+</RCC>
