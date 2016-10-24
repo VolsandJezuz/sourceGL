@@ -13,17 +13,17 @@
 #endif
 #endif
 
-#define LIBOBS_API_MAJOR_VER 0
-#define LIBOBS_API_MINOR_VER 1
-#define LIBOBS_API_PATCH_VER 0
+#define LIBSGL_API_MAJOR_VER 0
+#define LIBSGL_API_MINOR_VER 1
+#define LIBSGL_API_PATCH_VER 1
 #define MAKE_SEMANTIC_VERSION(major, minor, patch) \
                              ((major << 24) | \
                               (minor << 16) | \
                                patch        )
-#define LIBOBS_API_VER \
-	MAKE_SEMANTIC_VERSION(LIBOBS_API_MAJOR_VER, \
-                              LIBOBS_API_MINOR_VER, \
-                              LIBOBS_API_PATCH_VER)
+#define LIBSGL_API_VER \
+	MAKE_SEMANTIC_VERSION(LIBSGL_API_MAJOR_VER, \
+                              LIBSGL_API_MINOR_VER, \
+                              LIBSGL_API_PATCH_VER)
 
 typedef struct sgl_module sgl_module_t;
 
@@ -52,7 +52,7 @@ struct sgl_module{
 	} \
 	sgl_module_t *sgl_current_module(void) {return sgl_module_pointer;} \
 	MODULE_EXPORT uint32_t sgl_module_ver(void); \
-	uint32_t sgl_module_ver(void) {return LIBOBS_API_VER;}
+	uint32_t sgl_module_ver(void) {return LIBSGL_API_VER;}
 
 MODULE_EXPORT bool obs_module_load(void);
 MODULE_EXPORT void obs_module_unload(void);

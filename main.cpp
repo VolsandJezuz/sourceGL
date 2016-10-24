@@ -1,29 +1,53 @@
 #include "sourceGameLounge.h"
+#include "config.h"
 #include "wmiEventSink.h"
 #include <QtWidgets/QApplication>
 
-WNDPROC OldWinProc = NULL;
-
 int main(int argc, char *argv[])
 {
+	sConfig sC;
+
+	try
+	{
+		sC.load("config.xml");
+	}
+	catch (std::exception &e)
+	{
+		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, NULL, 0);
+		WCHAR *pwszError = new WCHAR[size_needed];
+		MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, pwszError, size_needed);
+
+		displayError(pwszError);
+
+		delete[] pwszError;
+	}
+
 	if (!wmiInitialize())
 	{
 		return true;
 	}
-	/*sNvAPIObject = new sNvAPI;
-	WCHAR pwszError[256];
-	if (!sNvAPIObject->Start(pwszError))
-	displayError(pwszError);
-
-	if (!sNvAPIObject->SetCoolerLevels(0, 0, 100))
-	//displayError(TEXT("OOPS"));
-	std::string s = std::to_string(sNvAPIObject->arr_CoolerInfo[0].Coolers[0].currentLevel);
-	MessageBoxA(NULL, s.c_str(), "sourceGL error:", MB_ICONERROR | MB_OK);*/
 
 	QApplication a(argc, argv);
 	sourceGameLounge w;
 	w.show();
-	return a.exec();
+	int ret = a.exec();
+
+	try
+	{
+		sC.save("config.xml");
+	}
+	catch (std::exception &e)
+	{
+		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, NULL, 0);
+		WCHAR *pwszError = new WCHAR[size_needed];
+		MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, pwszError, size_needed);
+
+		displayError(pwszError);
+
+		delete[] pwszError;
+	}
+
+	return ret;
 }
 
 void displayError(LPTSTR pwszError)

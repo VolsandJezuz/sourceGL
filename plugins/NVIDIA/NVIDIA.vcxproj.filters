@@ -23,11 +23,6 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{439b4e2a-e0ba-4466-9fb7-038be4d0e90a}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
     <Filter Include="Generated Files\Release">
       <UniqueIdentifier>{ccd83014-4ed9-4b46-98c4-4ab4e02d3e14}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
@@ -37,9 +32,6 @@
   <ItemGroup>
     <ClCompile Include="NVIDIA.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_NVIDIA.cpp">
-      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_NVIDIA.cpp">
       <Filter>Generated Files\Release</Filter>

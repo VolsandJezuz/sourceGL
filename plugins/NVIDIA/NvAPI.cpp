@@ -145,9 +145,3 @@ void sNvAPI::Stop() const
 	(*NvAPI_Unload)();
 	FreeLibrary(hDLL);
 }
-
-/*DISPLAY_DEVICE DispDev;
-ZeroMemory(&DispDev, sizeof(DispDev));
-DispDev.cb = sizeof(DispDev);
-if (EnumDisplayDevices(NULL, 0, &DispDev, 0))
-displayError(DispDev.DeviceName);*/

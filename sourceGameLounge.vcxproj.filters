@@ -23,11 +23,6 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{9a8d3904-7364-4b77-8461-0693a036cd86}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
     <Filter Include="Generated Files\Release">
       <UniqueIdentifier>{55ba3c40-c607-4d3e-a5b1-d4e56fa71ce9}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
@@ -41,9 +36,6 @@
     <ClCompile Include="sourceGameLounge.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_sourceGameLounge.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_sourceGameLounge.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
@@ -54,6 +46,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="wmiEventSink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -73,6 +68,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="wmiEventSink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
