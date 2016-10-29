@@ -1,4 +1,4 @@
-#include "sourceGameLounge.h"
+#include "commonDLL.h"
 #include "wmiEventSink.h"
 
 static IWbemLocator *pLoc = NULL;
@@ -17,7 +17,7 @@ bool wmiInitialize()
 	hres =  CoInitializeEx(0, COINIT_MULTITHREADED);
 	if (FAILED(hres))
 	{
-		displayError(TEXT("COM library initialization failed."));
+		displayError(L"COM library initialization failed.");
 		return false;
 	}
 
@@ -37,7 +37,7 @@ bool wmiInitialize()
 
 		if (FAILED(hres))
 		{
-			displayError(TEXT("COM security initialization failed."));
+			displayError(L"COM security initialization failed.");
 			CoUninitialize();
 			return false;
 		}
@@ -53,7 +53,7 @@ bool wmiInitialize()
 
 	if (FAILED(hres))
 	{
-		displayError(TEXT("IWbemLocator object creation failed."));
+		displayError(L"IWbemLocator object creation failed.");
 		CoUninitialize();
 		return false;
 	}
@@ -70,7 +70,7 @@ bool wmiInitialize()
 
 	if (FAILED(hres))
 	{
-		displayError(TEXT("Connect to WMI namespace failed."));
+		displayError(L"Connect to WMI namespace failed.");
 		pLoc->Release();
 		CoUninitialize();
 		return false;
@@ -88,7 +88,7 @@ bool wmiInitialize()
 
 	if (FAILED(hres))
 	{
-		displayError(TEXT("Setting WMI proxy blanket failed."));
+		displayError(L"Setting WMI proxy blanket failed.");
 		pSvc->Release();
 		pLoc->Release();
 		CoUninitialize();
@@ -118,7 +118,7 @@ bool wmiInitialize()
 
 	if (FAILED(hres))
 	{
-		displayError(TEXT("Call to ExecNotificationQueryAsync failed."));
+		displayError(L"Call to ExecNotificationQueryAsync failed.");
 		pSvc->Release();
 		pLoc->Release();
 		pUnsecApp->Release();

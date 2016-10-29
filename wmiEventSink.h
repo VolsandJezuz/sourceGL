@@ -9,8 +9,6 @@
 #include <mutex>
 #include <atomic>
 
-#pragma comment(lib, "wbemuuid.lib")
-
 extern std::atomic<bool> g_bWMI;
 extern std::mutex processMutex;
 extern std::atomic<bool> g_bProcessDetected;

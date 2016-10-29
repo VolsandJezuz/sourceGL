@@ -4,8 +4,7 @@
 #define NVAPI_MAX_PHYSICAL_GPUS	64
 #define NVAPI_MAX_COOLER_PER_GPU 20
 
-#include <Windows.h>
-#include <vector>
+#include "NVIDIA.h"
 
 typedef struct
 {
@@ -67,19 +66,20 @@ typedef int (*NvAPI_GPU_GetCoolerSettings_t)(int* hPhysicalGpu, int coolerIndex,
 typedef int (*NvAPI_GPU_SetCoolerLevels_t)(int* hPhysicalGpu, int coolerIndex, NV_GPU_COOLER_LEVELS* pCoolerLevels);
 typedef int (*NvAPI_Unload_t)();
 
-struct sNvAPI
+struct PLUGINNVIDIA_API cNvAPI
 {
+	cNvAPI();
 	int DispCount;
 	std::vector<std::string> arr_szDisplayName;
 	int GpuCount;
 	std::vector<NV_DISPLAY_DVC_INFO_EX> arr_DVCInfo;
 	std::vector<NV_GPU_COOLER_SETTINGS> arr_CoolerInfo;
-	bool Start(LPTSTR);
+	bool Start(WCHAR*);
 	std::string GPU_GetFullName(int) const;
 	bool SetDVCInfoEx(int, int) const;
 	bool SetCoolerLevels(int, int, int) const;
 
-	inline ~sNvAPI()
+	inline ~cNvAPI()
 	{
 		Stop();
 	}

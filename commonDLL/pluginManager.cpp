@@ -1,16 +1,43 @@
 #include "pluginManager.h"
-#include <iostream>
+#include <map>
 
 typedef plugin* (*fnCreatePlugin)(void);
 typedef void (*fnDestroyPlugin)(void);
 
+typedef std::map<std::wstring, plugin*> pluginMap;
+typedef std::map<std::wstring, HMODULE> libraryMap;
+
+class pluginManagerPimpl
+{
+public:
+	pluginMap m_plugins;
+	libraryMap m_libs;
+};
+
+pluginManager::pluginManager(void)
+{
+	m_implementation = new pluginManagerPimpl();
+}
+
+pluginManager::~pluginManager(void)
+{
+	delete m_implementation;
+}
+
+pluginManager& pluginManager::instance()
+{
+	static pluginManager pluginManager;
+	return pluginManager;
+}
+
 plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 {
+	std::wstring pwszError;
 	plugin* plugin = NULL;
-	pluginMap::iterator iter = m_plugins.find(pluginName);
-	if (iter == m_plugins.end())
+	pluginMap::iterator iter = m_implementation->m_plugins.find(pluginName);
+	if (iter == m_implementation->m_plugins.end())
 	{
-		HMODULE hModule = LoadLibraryW(pluginName.c_str());
+		HMODULE hModule = LoadLibraryW((L".\\plugins\\" + pluginName).c_str());
 		if (hModule != NULL)
 		{
 			fnCreatePlugin createPlugin = (fnCreatePlugin)GetProcAddress(hModule, "createPlugin");
@@ -20,29 +47,32 @@ plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 				if (plugin != NULL)
 				{
 					plugin->setName(pluginName);
-					m_plugins.insert(pluginMap::value_type(pluginName, plugin));
-					m_libs.insert(libraryMap::value_type(pluginName, hModule));
+					m_implementation->m_plugins.insert(pluginMap::value_type(pluginName, plugin));
+					m_implementation->m_libs.insert(libraryMap::value_type(pluginName, hModule));
 				}
 				else
 				{
-					std::wcerr << "ERROR: Could not load plugin from " << pluginName << std::endl;
+					pwszError = L"Could not load plugin from ";
 					FreeLibrary(hModule);
 				}
 			}
 			else
 			{
-				std::wcerr << "ERROR: Could not find symbol \"createPlugin\" in " << pluginName << std::endl;
+				pwszError = L"Could not find symbol \"createPlugin\" in ";
 				FreeLibrary(hModule);
 			}
 		}
 		else
-			std::wcerr << "ERROR: Could not load library: " << pluginName << std::endl;
+			pwszError = L"Could not load library: ";
 	}
 	else
 	{
-		std::wcout << "INFO: Library \"" << pluginName << "\" already loaded." << std::endl;
+		pwszError = L"Alread loaded library: ";
 		plugin = iter->second;
 	}
+
+	if (!pwszError.empty())
+		displayError((pwszError + pluginName).c_str());
 
 	return plugin;
 }
@@ -51,23 +81,23 @@ void pluginManager::unloadPlugin(plugin*& plugin)
 {
 	if (plugin != NULL)
 	{
-		libraryMap::iterator iter = m_libs.find(plugin->getName());
-		if (iter != m_libs.end())
+		libraryMap::iterator iter = m_implementation->m_libs.find(plugin->getName());
+		if (iter != m_implementation->m_libs.end())
 		{
-			m_plugins.erase(plugin->getName());
+			m_implementation->m_plugins.erase(plugin->getName());
 
 			HMODULE hModule = iter->second;
 			fnDestroyPlugin destroyPlugin = (fnDestroyPlugin)GetProcAddress(hModule, "destroyPlugin");
 			if (destroyPlugin != NULL)
 				destroyPlugin();
 			else
-				std::wcerr << "ERROR: Unable to find symbol \"destroyPlugin\" in library \"" << plugin->getName() << std::endl;
-
+				displayError((L"Unable to find symbol \"destroyPlugin\" in library: " + plugin->getName()).c_str());
+			
 			FreeLibrary(hModule);
-			m_libs.erase(iter);
+			m_implementation->m_libs.erase(iter);
 		}
 		else
-			std::cout << "WARNING: Trying to unload a plugin that is already unloaded or has never been loaded." << std::endl;
+			displayError(L"Trying to unload a plugin that is already unloaded or has never been loaded.");
 
 		plugin = NULL;
 	}

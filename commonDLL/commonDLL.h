@@ -1,6 +1,13 @@
 #ifndef _COMMONDLL_H_
 #define _COMMONDLL_H_
 
+#define STRICT
+#define WINVER 0x0501
+#define _WIN32_WINNT 0x0501
+#define _WIN32_WINDOWS 0x0501
+#define WIN32_LEAN_AND_MEAN
+
+#include <Windows.h>
 #include <vector>
 
 #ifdef COMMONDLL_EXPORTS
@@ -38,5 +45,7 @@ private:
 
 	commonDLLImpl* m_pImpl;
 };
+
+extern "C" COMMONDLL_API void displayError(LPCWSTR pwszError);
 
 #endif

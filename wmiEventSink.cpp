@@ -1,4 +1,3 @@
-#include "sourceGameLounge.h"
 #include "wmiEventSink.h"
 
 std::mutex processMutex;

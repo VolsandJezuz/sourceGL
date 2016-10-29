@@ -1,9 +1,9 @@
 #include "config.h"
+#include "commonDLL.h"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 //#include <boost/foreach.hpp>
 #include <filesystem>
-#include "libsgl/module.h"
 
 void sConfig::load(const std::string &filename)
 {
@@ -20,7 +20,7 @@ void sConfig::load(const std::string &filename)
 			//m_modules.insert(v.second.data());
 	}
 	else
-		configVersion = LIBSGL_API_VER;
+		configVersion = COMMONDLL_API_VER;
 }
 
 void sConfig::save(const std::string &filename)

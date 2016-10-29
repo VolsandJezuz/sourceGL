@@ -1,42 +1,33 @@
-#define _DO_NOT_EXPORT
-
 #include "NVIDIA.h"
-#include "../../libsgl/module.h"
 
-static NvStruct *NvObject = nullptr;
+pluginNVIDIA* g_pluginNVIDIA = NULL;
 
-SGL_DECLARE_MODULE()
-
-bool sgl_module_load(void)
+pluginNVIDIA::pluginNVIDIA(void)
 {
-	NvObject = new NvStruct;
-	NvObject->Start();
-	return true;
+	commonDLL::instance().addName("NVIDIA");
 }
 
-void obs_module_unload(void)
+pluginNVIDIA::~pluginNVIDIA(void)
 {
-	delete NvObject;
-	NvObject = nullptr;
 }
 
-void NvStruct::Start()
-{
-	
-}
-
-void NvStruct::Stop()
-{
-
-}
-
-NVIDIA::NVIDIA(QWidget *parent)
-	: QDialog(parent)
+NVIDIA::NVIDIA(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
 }
 
 NVIDIA::~NVIDIA()
 {
+}
 
+extern "C" PLUGINNVIDIA_API plugin* createPlugin(void)
+{
+	g_pluginNVIDIA = new pluginNVIDIA();
+	return g_pluginNVIDIA;
+}
+
+extern "C" PLUGINNVIDIA_API void destroyPlugin(void)
+{
+	delete g_pluginNVIDIA;
+	g_pluginNVIDIA = NULL;
 }

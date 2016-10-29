@@ -1,18 +1,16 @@
 #ifndef SOURCEGAMELOUNGE_H
 #define SOURCEGAMELOUNGE_H
 
-#define STRICT
-#define WINVER 0x0501
-#define _WIN32_WINDOWS 0x0501
-#define _WIN32_WINNT 0x0501
-#define WIN32_LEAN_AND_MEAN
-
-#include <Windows.h>
-#include <string>
 #include <QtWidgets/QMainWindow>
 #include "ui_sourceGameLounge.h"
 
-class sourceGameLounge : public QMainWindow
+#ifdef SOURCEGAMELOUNGE_EXPORTS
+#define SOURCEGAMELOUNGE_API __declspec(dllexport)
+#else
+#define SOURCEGAMELOUNGE_API __declspec(dllimport)
+#endif
+
+class SOURCEGAMELOUNGE_API sourceGameLounge : public QMainWindow
 {
 	Q_OBJECT
 
@@ -23,7 +21,5 @@ public:
 private:
 	Ui::sourceGameLoungeClass ui;
 };
-
-void displayError(LPTSTR pwszError);
 
 #endif

@@ -1,5 +1,10 @@
 #include "commonDLL.h"
 
+extern "C" COMMONDLL_API void displayError(LPCWSTR pwszError)
+{
+	MessageBoxW(NULL, pwszError, L"sourceGL error:", MB_ICONERROR | MB_OK);
+}
+
 class commonDLLImpl
 {
 public:

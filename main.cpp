@@ -1,3 +1,4 @@
+#include "pluginManager.h"
 #include "sourceGameLounge.h"
 #include "config.h"
 #include "wmiEventSink.h"
@@ -22,6 +23,22 @@ int main(int argc, char *argv[])
 		delete[] pwszError;
 	}
 
+	std::vector<plugin*> plugins;
+
+	WIN32_FIND_DATA fileData;
+	HANDLE fileHandle = FindFirstFile(TEXT(".\\plugins\\*.dll"), &fileData);
+	if (fileHandle == (void*)ERROR_INVALID_HANDLE || fileHandle == (void*)ERROR_FILE_NOT_FOUND)
+		displayError(L"No plugins were found.");
+	else
+	{
+		do
+		{
+			plugin* plugin = pluginManager::instance().loadPlugin(fileData.cFileName);
+			if (plugin != NULL)
+				plugins.push_back(plugin);
+		} while (FindNextFile(fileHandle, &fileData));
+	}
+
 	if (!wmiInitialize())
 	{
 		return true;
@@ -31,6 +48,9 @@ int main(int argc, char *argv[])
 	sourceGameLounge w;
 	w.show();
 	int ret = a.exec();
+
+	for (plugin* plugin : plugins)
+		pluginManager::instance().unloadPlugin(plugin);
 
 	try
 	{
@@ -48,9 +68,4 @@ int main(int argc, char *argv[])
 	}
 
 	return ret;
-}
-
-void displayError(LPTSTR pwszError)
-{
-	MessageBox(NULL, pwszError, TEXT("sourceGL error:"), MB_ICONERROR | MB_OK);
 }

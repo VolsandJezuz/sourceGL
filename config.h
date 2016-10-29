@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <libsgl/c99defs.h>
+#include "c99defs.h"
 //#include <set>
 #include <string>
 

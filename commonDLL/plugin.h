@@ -3,6 +3,8 @@
 
 #include "commonDLL.h"
 
+class pluginPimpl;
+
 class COMMONDLL_API plugin
 {
 public:
@@ -16,7 +18,7 @@ protected:
 	void setName(const std::wstring& name);
 
 private:
-	std::wstring m_name;
+	pluginPimpl* m_implementation;
 };
 
 #endif

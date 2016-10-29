@@ -1,11 +1,11 @@
 #include "NvAPI.h"
 
-bool sNvAPI::Start(LPTSTR pwszError)
+bool cNvAPI::Start(WCHAR* pwszError)
 {
 	hDLL = LoadLibrary(TEXT("nvapi.dll"));
 	if (hDLL == NULL)
 	{
-		lstrcpy(pwszError, TEXT("Load NvAPI DLL failed."));
+		lstrcpyW(pwszError, L"Load NvAPI DLL failed.");
 		return false;
 	}
 
@@ -25,7 +25,7 @@ bool sNvAPI::Start(LPTSTR pwszError)
 	status = (_NvAPI_Status)(*NvAPI_Initialize)();
 	if (status != NVAPI_OK)
 	{
-		lstrcpy(pwszError, TEXT("NvAPI initialization failed."));
+		lstrcpyW(pwszError, L"NvAPI initialization failed.");
 		return false;
 	}
 
@@ -41,7 +41,7 @@ bool sNvAPI::Start(LPTSTR pwszError)
 		}
 		else if (status != NVAPI_END_ENUMERATION)
 		{
-			lstrcpy(pwszError, TEXT("NvAPI display handle enumeration failed."));
+			lstrcpyW(pwszError, L"NvAPI display handle enumeration failed.");
 			return false;
 		}
 	}
@@ -63,7 +63,7 @@ bool sNvAPI::Start(LPTSTR pwszError)
 	status = (_NvAPI_Status)(*NvAPI_EnumPhysicalGPUs)(nvGPUHandle, &GpuCount);
 	if (status != NVAPI_OK)
 	{
-		lstrcpy(pwszError, TEXT("NvAPI physical GPU enumeration failed."));
+		lstrcpyW(pwszError, L"NvAPI physical GPU enumeration failed.");
 		return false;
 	}
 
@@ -90,7 +90,7 @@ bool sNvAPI::Start(LPTSTR pwszError)
 	return true;
 }
 
-std::string sNvAPI::GPU_GetFullName(int nGPU) const
+std::string cNvAPI::GPU_GetFullName(int nGPU) const
 {
 	std::string myString = "";
 	char szName[64];
@@ -103,7 +103,7 @@ std::string sNvAPI::GPU_GetFullName(int nGPU) const
 	return myString;
 }
 
-bool sNvAPI::SetDVCInfoEx(int nDisp, int level) const
+bool cNvAPI::SetDVCInfoEx(int nDisp, int level) const
 {
 	NV_DISPLAY_DVC_INFO_EX info;
 	info.version = arr_DVCInfo[nDisp].version;
@@ -119,7 +119,7 @@ bool sNvAPI::SetDVCInfoEx(int nDisp, int level) const
 	return true;
 }
 
-bool sNvAPI::SetCoolerLevels(int nGPU, int nCooler, int newLevel) const
+bool cNvAPI::SetCoolerLevels(int nGPU, int nCooler, int newLevel) const
 {
 	NV_GPU_COOLER_LEVELS levels;
 	levels.version = sizeof(NV_GPU_COOLER_LEVELS) | 0x10000;
@@ -140,7 +140,7 @@ bool sNvAPI::SetCoolerLevels(int nGPU, int nCooler, int newLevel) const
 	return true;
 }
 
-void sNvAPI::Stop() const
+void cNvAPI::Stop() const
 {
 	(*NvAPI_Unload)();
 	FreeLibrary(hDLL);
