@@ -1,5 +1,5 @@
 ********************************************************************************
-sourceGL is now sourceGameLounge
+ sourceGL is now sourceGameLounge
 ********************************************************************************
 
   Along with the renaming, sourceGameLounge will now be open-source. It will
@@ -17,7 +17,7 @@ sourceGL is now sourceGameLounge
   
   
 ********************************************************************************
-Versioning
+ Versioning
 ********************************************************************************
 
   I'm attempting to use separate semantic versioning (http://semver.org/) for
@@ -28,13 +28,12 @@ Versioning
   
   Current versions of the main program and the plugins that have been at least
   partially implemented:
-  
     - sourceGameLounge 0.2.1
-	- NVIDIA plugin 0.1.0
+    - NVIDIA plugin 0.1.0
 	
 		
 ********************************************************************************
-Distribution
+ Distribution
 ********************************************************************************
 
   - Main program modules in root directory
@@ -46,11 +45,11 @@ Distribution
   - Files to generate/modify the GUI are provided, including the images folder
   - The project files will automically copy the build's runtime files into the
     program-dir folder, which includes all the other files to make the contents
-	of that folder like portable releases
+    of that folder like portable releases
 		
 	
 ********************************************************************************
-Utilized build tools
+ Utilized build tools
 ********************************************************************************
 
   - Microsoft Visual Studio Community 2013
@@ -64,20 +63,20 @@ Utilized build tools
 	  
 	  
 ********************************************************************************
-Build notes
+ Build notes
 ********************************************************************************
 	  
   - BOOSTDIR needs to be defined as a macro in VS 2013 in order for the project
-	additional include/library directories to work as-is, for example with the
-	default install folder: $(BOOSTDIR) = C:\Program Files\boost\boost_1_62_0
+    additional include/library directories to work as-is, for example with the
+    default install folder: $(BOOSTDIR) = C:\Program Files\boost\boost_1_62_0
   - QTDIR may need to be user defined as a macro, but the Qt Add-in should do
     this, with the default install folder: $(QTDIR) = C:\Qt\Qt5.7.0\5.7\msvc2013
   - Information on how to define macros in VS 2013: http://bit.ly/2fpK6P2
   - Currently, everything is half-implemented, at best. Commenting is also very
     poor right now and there is a lot of placeholder code that I've just been 
-	using to test basic functionality.
+    using to test basic functionality.
   
   
 ********************************************************************************
-...more to come, this README is a very basic placeholder for now.
+ ...more to come, this README is a very basic placeholder for now.
 ********************************************************************************
