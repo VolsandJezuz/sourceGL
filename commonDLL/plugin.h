@@ -1,24 +1,27 @@
-#ifndef _PLUGIN_H_
-#define _PLUGIN_H_
+#ifndef COMMONDLL_PLUGIN_H_
+#define COMMONDLL_PLUGIN_H_
 
 #include "commonDLL.h"
+#include <string>
 
-class pluginPimpl;
+namespace commondll {
 
-class COMMONDLL_API plugin
+class plugin
 {
-public:
-	plugin(void);
-	virtual ~plugin(void);
+	friend class pluginManager;
 
-	std::wstring getName() const;
+public:
+	COMMONDLL_API std::wstring getName() const;
 
 protected:
-	friend class pluginManager;
-	void setName(const std::wstring& name);
+	COMMONDLL_API plugin();
+	COMMONDLL_API virtual ~plugin() = default;
+	COMMONDLL_API void setName(const std::wstring& name);
 
 private:
-	pluginPimpl* m_implementation;
+	std::wstring m_name;
 };
 
-#endif
+} // namespace commondll
+
+#endif // COMMONDLL_PLUGIN_H_

@@ -1,41 +1,32 @@
 #include "pluginManager.h"
-#include <map>
 
-typedef plugin* (*fnCreatePlugin)(void);
-typedef void (*fnDestroyPlugin)(void);
+namespace commondll {
 
-typedef std::map<std::wstring, plugin*> pluginMap;
-typedef std::map<std::wstring, HMODULE> libraryMap;
+typedef plugin* (*fnCreatePlugin)();
+typedef void(*fnDestroyPlugin)();
 
-class pluginManagerPimpl
-{
-public:
-	pluginMap m_plugins;
-	libraryMap m_libs;
-};
-
-pluginManager::pluginManager(void)
-{
-	m_implementation = new pluginManagerPimpl();
-}
-
-pluginManager::~pluginManager(void)
-{
-	delete m_implementation;
-}
-
-pluginManager& pluginManager::instance()
+COMMONDLL_API pluginManager& pluginManager::instance()
 {
 	static pluginManager pluginManager;
 	return pluginManager;
 }
 
-plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
+COMMONDLL_API void pluginManager::displayError(LPCWSTR pwszError)
+{
+	fnDisplayError(pwszError);
+}
+
+COMMONDLL_API void pluginManager::displayErrorA(LPCSTR pszError)
+{
+	fnDisplayErrorA(pszError);
+}
+
+COMMONDLL_API plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 {
 	std::wstring pwszError;
 	plugin* plugin = NULL;
-	pluginMap::iterator iter = m_implementation->m_plugins.find(pluginName);
-	if (iter == m_implementation->m_plugins.end())
+	pluginMap::iterator iter = m_plugins.find(pluginName);
+	if (iter == m_plugins.end())
 	{
 		HMODULE hModule = LoadLibraryW((L".\\plugins\\" + pluginName).c_str());
 		if (hModule != NULL)
@@ -47,14 +38,11 @@ plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 				if (plugin != NULL)
 				{
 					plugin->setName(pluginName);
-					m_implementation->m_plugins.insert(pluginMap::value_type(pluginName, plugin));
-					m_implementation->m_libs.insert(libraryMap::value_type(pluginName, hModule));
+					m_plugins.insert(pluginMap::value_type(pluginName, plugin));
+					m_libs.insert(libraryMap::value_type(pluginName, hModule));
 				}
 				else
-				{
-					pwszError = L"Could not load plugin from ";
 					FreeLibrary(hModule);
-				}
 			}
 			else
 			{
@@ -67,7 +55,7 @@ plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 	}
 	else
 	{
-		pwszError = L"Alread loaded library: ";
+		pwszError = L"Already loaded library: ";
 		plugin = iter->second;
 	}
 
@@ -77,14 +65,14 @@ plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 	return plugin;
 }
 
-void pluginManager::unloadPlugin(plugin*& plugin)
+COMMONDLL_API void pluginManager::unloadPlugin(plugin*& plugin)
 {
 	if (plugin != NULL)
 	{
-		libraryMap::iterator iter = m_implementation->m_libs.find(plugin->getName());
-		if (iter != m_implementation->m_libs.end())
+		libraryMap::iterator iter = m_libs.find(plugin->getName());
+		if (iter != m_libs.end())
 		{
-			m_implementation->m_plugins.erase(plugin->getName());
+			m_plugins.erase(plugin->getName());
 
 			HMODULE hModule = iter->second;
 			fnDestroyPlugin destroyPlugin = (fnDestroyPlugin)GetProcAddress(hModule, "destroyPlugin");
@@ -92,9 +80,9 @@ void pluginManager::unloadPlugin(plugin*& plugin)
 				destroyPlugin();
 			else
 				displayError((L"Unable to find symbol \"destroyPlugin\" in library: " + plugin->getName()).c_str());
-			
+
 			FreeLibrary(hModule);
-			m_implementation->m_libs.erase(iter);
+			m_libs.erase(iter);
 		}
 		else
 			displayError(L"Trying to unload a plugin that is already unloaded or has never been loaded.");
@@ -102,3 +90,21 @@ void pluginManager::unloadPlugin(plugin*& plugin)
 		plugin = NULL;
 	}
 }
+
+pluginManager::pluginManager()
+{
+	hDLL = LoadLibrary(TEXT("sourceGameLounge.exe"));
+	if (hDLL != NULL)
+	{
+		fnDisplayError = (fnDisplayError_t)GetProcAddress(hDLL, "displayError");
+		fnDisplayErrorA = (fnDisplayErrorA_t)GetProcAddress(hDLL, "displayErrorA");
+	}
+}
+
+pluginManager::~pluginManager()
+{
+	if (hDLL != NULL)
+		FreeLibrary(hDLL);
+}
+
+} // namespace commondll

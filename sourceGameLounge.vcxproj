@@ -35,9 +35,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;SOURCEGAMELOUNGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\commonDLL;C:\Program Files\boost\boost_1_62_0;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <AdditionalIncludeDirectories>.\commonDLL;$(BOOSTDIR);.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -54,6 +52,9 @@
       </OpenMPSupport>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
+      <SDLCheck>true</SDLCheck>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -70,22 +71,24 @@
       </FixedBaseAddress>
       <SupportUnloadOfDelayLoadedDLL>
       </SupportUnloadOfDelayLoadedDLL>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <CustomBuildStep>
-      <Outputs>.\program-dir\config.xml;.\program-dir\sourceGameLounge.exe</Outputs>
-      <Command>copy /y /b $(SolutionDir)$(Configuration)\sourceGameLounge.exe .\program-dir\sourceGameLounge.exe
-set config=.\program-dir\config.xml
+      <Outputs>.\program-dir\configs\config.xml;.\program-dir\sourceGameLounge.exe</Outputs>
+      <Command>set sglexe=.\program-dir\sourceGameLounge.exe
+if exist %sglexe% del /f /q .\program-dir\sourceGameLounge.exe
+copy /y /b $(SolutionDir)$(Configuration)\sourceGameLounge.exe .\program-dir\sourceGameLounge.exe
+set config=.\program-dir\configs\config.xml
 if exist %config% del /f /q %config%</Command>
+      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="processNotify.cpp" />
-    <ClCompile Include="wmiEventSink.cpp" />
+    <ClCompile Include="gameDetection.cpp" />
     <ClCompile Include="GeneratedFiles\qrc_sourceGameLounge.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
@@ -99,7 +102,7 @@ if exist %config% del /f /q %config%</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing sourceGameLounge.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -D_WINDOWS -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DSOURCEGAMELOUNGE_EXPORTS -D_UNICODE -DUNICODE  "-I.\commonDLL" "-IC:\Program Files\boost\boost_1_62_0" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -D_WINDOWS -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DSOURCEGAMELOUNGE_EXPORTS -D_UNICODE -DUNICODE  "-I.\commonDLL" "-I$(BOOSTDIR)\." "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -113,7 +116,7 @@ if exist %config% del /f /q %config%</Command>
   <ItemGroup>
     <ClInclude Include="c99defs.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="wmiEventSink.h" />
+    <ClInclude Include="gameDetection.h" />
     <ClInclude Include="GeneratedFiles\ui_sourceGameLounge.h" />
   </ItemGroup>
   <ItemGroup>

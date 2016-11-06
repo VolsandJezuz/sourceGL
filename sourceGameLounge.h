@@ -1,25 +1,33 @@
 #ifndef SOURCEGAMELOUNGE_H
 #define SOURCEGAMELOUNGE_H
 
-#include <QtWidgets/QMainWindow>
+#define STRICT
+#define WIN32_LEAN_AND_MEAN
+
 #include "ui_sourceGameLounge.h"
+#include "config.h"
+#include <QtWidgets/QMainWindow>
+#include <Windows.h>
 
-#ifdef SOURCEGAMELOUNGE_EXPORTS
-#define SOURCEGAMELOUNGE_API __declspec(dllexport)
-#else
-#define SOURCEGAMELOUNGE_API __declspec(dllimport)
-#endif
+namespace sGL {
 
-class SOURCEGAMELOUNGE_API sourceGameLounge : public QMainWindow
+class sourceGameLounge : public QMainWindow // SOURCEGAMELOUNGE_API if need access to main window for plugins
 {
 	Q_OBJECT
 
 public:
 	sourceGameLounge(QWidget *parent = 0);
-	~sourceGameLounge();
+	~sourceGameLounge() = default;
+
+	std::vector<commondll::plugin*> plugins;
 
 private:
 	Ui::sourceGameLoungeClass ui;
 };
 
-#endif
+} // namespace sGL
+
+extern "C" SOURCEGAMELOUNGE_API void displayError(LPCWSTR pwszError);
+extern "C" SOURCEGAMELOUNGE_API void displayErrorA(LPCSTR pszError);
+
+#endif // SOURCEGAMELOUNGE_H

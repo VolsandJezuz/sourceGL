@@ -37,18 +37,28 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;COMMONDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
-      <DebugInformationFormat />
+      <DebugInformationFormat>None</DebugInformationFormat>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
       <WarningLevel>Level3</WarningLevel>
+      <CompileAsManaged>
+      </CompileAsManaged>
+      <CompileAsWinRT>
+      </CompileAsWinRT>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <ProjectReference />
     <PostBuildEvent>
@@ -56,10 +66,13 @@
       </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>copy /y /b $(SolutionDir)$(Configuration)\commonDLL.dll ..\program-dir\commonDLL.dll</Command>
+      <Command>set commondll=..\program-dir\commonDLL.dll
+if exist %commondll% del /f /q ..\program-dir\commonDLL.dll
+copy /y /b $(SolutionDir)$(Configuration)\commonDLL.dll ..\program-dir\commonDLL.dll</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>..\program-dir\commonDLL.dll;%(Outputs)</Outputs>
+      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
     <ProjectReference />
     <ProjectReference>

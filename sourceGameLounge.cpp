@@ -1,19 +1,23 @@
-#include "commonDLL.h"
 #include "sourceGameLounge.h"
-#include "wmiEventSink.h"
+#include "commonDLL.h"
+
+namespace sGL {
 
 sourceGameLounge::sourceGameLounge(QWidget *parent) : QMainWindow(parent)
 {
-	commonDLL::instance().addName("sourceGameLounge");
+	commondll::commonDLL::instance().addName("sourceGameLounge");
 
 	ui.setupUi(this);
 }
 
-sourceGameLounge::~sourceGameLounge()
-{
-	if (g_thread1.joinable())
-		g_thread1.join();
+} // namespace sGL
 
-	if (g_bWMI)
-		wmiCleanup();
+extern "C" SOURCEGAMELOUNGE_API void displayError(LPCWSTR pwszError)
+{
+	MessageBoxW(NULL, pwszError, L"sourceGL error:", MB_ICONERROR | MB_OK);
+}
+
+extern "C" SOURCEGAMELOUNGE_API void displayErrorA(LPCSTR pszError)
+{
+	MessageBoxA(NULL, pszError, "sourceGL error:", MB_ICONERROR | MB_OK);
 }

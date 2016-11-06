@@ -1,40 +1,26 @@
 #include "commonDLL.h"
 
-extern "C" COMMONDLL_API void displayError(LPCWSTR pwszError)
-{
-	MessageBoxW(NULL, pwszError, L"sourceGL error:", MB_ICONERROR | MB_OK);
-}
-
-class commonDLLImpl
-{
-public:
-	nameList m_names;
-};
-
-commonDLL::commonDLL()
-{
-	m_pImpl = new commonDLLImpl();
-	return;
-}
+namespace commondll {
 
 commonDLL::~commonDLL()
 {
-	m_pImpl->m_names.clear();
-	delete m_pImpl;
+	m_names.clear();
 }
 
-commonDLL& commonDLL::instance()
+COMMONDLL_API commonDLL& commonDLL::instance()
 {
 	static commonDLL instance;
 	return instance;
 }
 
-void commonDLL::addName(const std::string& name)
+COMMONDLL_API void commonDLL::addName(const std::string& name)
 {
-	m_pImpl->m_names.push_back(name);
+	m_names.push_back(name);
 }
 
-const nameList& commonDLL::getNames() const
+COMMONDLL_API const std::vector<std::string>& commonDLL::getNames() const
 {
-	return m_pImpl->m_names;
+	return m_names;
 }
+
+} // namespace commondll

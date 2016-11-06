@@ -2,15 +2,38 @@
 #define CONFIG_H
 
 #include "c99defs.h"
-//#include <set>
+#include "plugin.h"
 #include <string>
+#include <thread>
+#include <vector>
 
-struct sConfig
+#ifdef SOURCEGAMELOUNGE_EXPORTS
+#define SOURCEGAMELOUNGE_API __declspec(dllexport)
+#else
+#define SOURCEGAMELOUNGE_API __declspec(dllimport)
+#endif // SOURCEGAMELOUNGE_EXPORTS
+
+namespace sGL {
+
+class SOURCEGAMELOUNGE_API config
 {
-	uint32_t configVersion;
-	//std::set<std::string> m_modules;
+public:
+	static config& instance();
 	void load(const std::string &filename);
 	void save(const std::string &filename);
+
+	uint32_t configVersion;
+	uint32_t steam32ID;
+	std::vector<std::string>* games;
+	bool runAtWindowsStartup;
+	bool minToTrayStartup;
+	bool autoExit;
+
+private:
+	config();
+	~config();
 };
 
-#endif
+} // namesapce sGL
+
+#endif // CONFIG_H

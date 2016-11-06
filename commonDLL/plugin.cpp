@@ -1,29 +1,20 @@
 #include "plugin.h"
 
-class pluginPimpl
-{
-public:
-	std::wstring m_name;
-};
+namespace commondll {
 
-plugin::plugin(void)
+COMMONDLL_API plugin::plugin()
 {
 	commonDLL::instance().addName("Plugin");
-
-	m_implementation = new pluginPimpl();
 }
 
-plugin::~plugin(void)
+COMMONDLL_API std::wstring plugin::getName() const
 {
-	delete m_implementation;
+	return m_name;
 }
 
-std::wstring plugin::getName() const
+COMMONDLL_API void plugin::setName(const std::wstring& name)
 {
-	return m_implementation->m_name;
+	m_name = name;
 }
 
-void plugin::setName(const std::wstring& name)
-{
-	m_implementation->m_name = name;
-}
+} // namespace commondll

@@ -42,13 +42,10 @@
     <ClCompile Include="GeneratedFiles\qrc_sourceGameLounge.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="processNotify.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wmiEventSink.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gameDetection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -67,13 +64,13 @@
     <ClInclude Include="GeneratedFiles\ui_sourceGameLounge.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="wmiEventSink.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="c99defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gameDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

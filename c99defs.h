@@ -17,10 +17,8 @@
 #ifndef _C99DEFS_H_
 #define _C99DEFS_H_
 
-/*
-* Contains hacks for getting some C99 stuff working in VC, things like
-* bool, inline, stdint
-*/
+/* Contains hacks for getting some C99 stuff working in VC, things like
+* bool, inline, stdint */
 
 #define UNUSED_PARAMETER(param) (void)param
 
@@ -32,7 +30,7 @@
 #define DEPRECATED_START
 #define DEPRECATED_END __attribute__ ((deprecated))
 #define FORCE_INLINE inline __attribute__((always_inline))
-#endif
+#endif // _MSC_VER 
 
 #ifdef _MSC_VER
 
@@ -45,14 +43,15 @@
 * project.  They should be fired, and legally forbidden to have a job in
 * ANYTHING even REMOTELY related to programming.  FOREVER.  This should also
 * apply to the next 10 generations all of their descendents. */
+
 #ifndef __cplusplus
 #define inline __inline
-#endif
+#endif // __cplusplus
 
 #define EXPORT __declspec(dllexport)
 #else
 #define EXPORT
-#endif
+#endif // _MSC_VER
 
 #if _MSC_VER && _MSC_VER < 0x0708
 
@@ -67,7 +66,7 @@ typedef long long off_t;
 typedef long off_t;
 #endif
 typedef int64_t off64_t;
-#endif /* __off_t_defined */
+#endif // __off_t_defined
 
 #define SIZE_T_FORMAT "%u"
 
@@ -80,6 +79,6 @@ typedef int64_t off64_t;
 
 #define SIZE_T_FORMAT "%zu"
 
-#endif
+#endif // _MSC_VER && _MSC_VER < 0x0708
 
-#endif
+#endif // _C99DEFS_H_

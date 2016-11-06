@@ -1,21 +1,28 @@
-#ifndef NVIDIA_H
-#define NVIDIA_H
+#ifndef PLUGINS_NVIDIA_NVIDIA_H
+#define PLUGINS_NVIDIA_NVIDIA_H
 
-#include "plugin.h"
-#include <QtWidgets/QDialog>
 #include "ui_NVIDIA.h"
+#include "plugin.h"
+#include <QtWidgets/qdialog.h>
 
-#ifdef PLUGINNVIDIA_EXPORTS
-#define PLUGINNVIDIA_API __declspec(dllexport)
+#ifdef PLUGIN_NVIDIA_EXPORTS
+#define PLUGIN_NVIDIA_API __declspec(dllexport)
 #else
-#define PLUGINNVIDIA_API __declspec(dllimport)
-#endif
+#define PLUGIN_NVIDIA_API __declspec(dllimport)
+#endif // PLUGIN_NVIDIA_EXPORTS
 
-class PLUGINNVIDIA_API pluginNVIDIA : public plugin
+#define PLUGIN_NVIDIA_MAJOR_VER 0
+#define PLUGIN_NVIDIA_MINOR_VER 1
+#define PLUGIN_NVIDIA_PATCH_VER 0
+#define PLUGIN_NVIDIA_VER MAKE_SEMANTIC_VERSION(PLUGIN_NVIDIA_MAJOR_VER, PLUGIN_NVIDIA_MINOR_VER, PLUGIN_NVIDIA_PATCH_VER)
+
+namespace nvidia {
+
+class PLUGIN_NVIDIA_API pluginNVIDIA : public commondll::plugin
 {
 public:
-	pluginNVIDIA(void);
-	~pluginNVIDIA(void);
+	pluginNVIDIA();
+	~pluginNVIDIA();
 };
 
 class NVIDIA : public QDialog
@@ -24,13 +31,15 @@ class NVIDIA : public QDialog
 
 public:
 	NVIDIA(QWidget *parent = 0);
-	~NVIDIA();
+	~NVIDIA() = default;
 
 private:
 	Ui::NVIDIAClass ui;
 };
 
-extern "C" PLUGINNVIDIA_API plugin* createPlugin(void);
-extern "C" PLUGINNVIDIA_API void destroyPlugin(void);
+} // namespace nvidia
 
-#endif
+extern "C" PLUGIN_NVIDIA_API commondll::plugin* createPlugin();
+extern "C" PLUGIN_NVIDIA_API void destroyPlugin();
+
+#endif // PLUGINS_NVIDIA_NVIDIA_H

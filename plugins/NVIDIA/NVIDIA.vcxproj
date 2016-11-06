@@ -34,10 +34,9 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;PLUGINNVIDIA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\commonDLL;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;PLUGIN_NVIDIA_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\commonDLL;..\..;$(BOOSTDIR);.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -54,12 +53,14 @@
       <OpenMPSupport>
       </OpenMPSupport>
       <CompileAs>CompileAsCpp</CompileAs>
+      <SDLCheck>true</SDLCheck>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>commonDLL.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>commonDLL.lib;sourceGameLounge.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <FixedBaseAddress>
@@ -70,14 +71,19 @@
       </LargeAddressAware>
       <SupportUnloadOfDelayLoadedDLL>
       </SupportUnloadOfDelayLoadedDLL>
-      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <CustomBuildStep>
-      <Command>copy /y /b $(SolutionDir)$(Configuration)\NVIDIA.dll ..\..\program-dir\plugins\NVIDIA.dll</Command>
-      <Outputs>..\..\program-dir\plugins\NVIDIA.dll</Outputs>
+      <Command>set nvidiaplugin=..\..\program-dir\plugins\NVIDIA.dll
+if exist %nvidiaplugin% del /f /q ..\..\program-dir\plugins\NVIDIA.dll
+copy /y /b $(SolutionDir)$(Configuration)\NVIDIA.dll ..\..\program-dir\plugins\NVIDIA.dll
+set nvidiaconfig=..\..\program-dir\configs\plugins\NVIDIA_config.xml
+if exist %nvidiaconfig% del /f /q %config%</Command>
+      <Outputs>..\..\program-dir\configs\plugins\NVIDIA_config.xml;..\..\program-dir\plugins\NVIDIA.dll</Outputs>
+      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -88,13 +94,14 @@
     <ClCompile Include="GeneratedFiles\Release\moc_NVIDIA.cpp" />
     <ClCompile Include="NvAPI.cpp" />
     <ClCompile Include="NVIDIA.cpp" />
+    <ClCompile Include="NVIDIAconfig.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="NVIDIA.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing NVIDIA.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -D_WINDOWS -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DPLUGINNVIDIA_EXPORTS -D_WINDLL -D_UNICODE -DUNICODE  "-I.\..\..\commonDLL" "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -D_WINDOWS -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DPLUGIN_NVIDIA_EXPORTS -D_WINDLL -D_UNICODE -DUNICODE  "-I.\..\..\commonDLL" "-I.\..\.." "-I$(BOOSTDIR)\." "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +115,7 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_NVIDIA.h" />
     <ClInclude Include="NvAPI.h" />
+    <ClInclude Include="NVIDIAconfig.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="NVIDIA.qrc">

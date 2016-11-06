@@ -4,11 +4,10 @@
 *.vcxproj.user
 
 /program-dir/commonDLL.dll
-/program-dir/config.xml
+/program-dir/configs/**
 /program-dir/plugins/**
 /program-dir/sourceGameLounge.exe
 
 /sourceGameLounge.opensdf
 /sourceGameLounge.sdf
 /sourceGameLounge.v12.suo
-/sourceGameLounge.vcxproj.user

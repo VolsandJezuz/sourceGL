@@ -1,29 +1,44 @@
-#include "pluginManager.h"
+#define STRICT
+#define WINVER 0x0501
+#define _WIN32_WINNT 0x0501
+#define _WIN32_WINDOWS 0x0501
+#define WIN32_LEAN_AND_MEAN
+
 #include "sourceGameLounge.h"
 #include "config.h"
-#include "wmiEventSink.h"
+#include "gameDetection.h"
+#include "pluginManager.h"
 #include <QtWidgets/QApplication>
+#include <Windows.h>
 
 int main(int argc, char *argv[])
 {
-	sConfig sC;
+	HRESULT hres;
+
+	hres = CoInitializeEx(0, COINIT_MULTITHREADED);
+	if (FAILED(hres))
+		displayError(std::to_wstring(hres).c_str());
+
+	QApplication a(argc, argv);
+	sGL::sourceGameLounge w;
 
 	try
 	{
-		sC.load("config.xml");
+		sGL::config::instance().load(".\\configs\\config.xml");
 	}
 	catch (std::exception &e)
 	{
-		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, NULL, 0);
-		WCHAR *pwszError = new WCHAR[size_needed];
-		MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, pwszError, size_needed);
-
-		displayError(pwszError);
-
-		delete[] pwszError;
+		displayErrorA(e.what());
 	}
 
-	std::vector<plugin*> plugins;
+	try
+	{
+		sGL::config::instance().save(".\\configs\\config.xml");
+	}
+	catch (std::exception &e)
+	{
+		displayErrorA(e.what());
+	}
 
 	WIN32_FIND_DATA fileData;
 	HANDLE fileHandle = FindFirstFile(TEXT(".\\plugins\\*.dll"), &fileData);
@@ -33,39 +48,29 @@ int main(int argc, char *argv[])
 	{
 		do
 		{
-			plugin* plugin = pluginManager::instance().loadPlugin(fileData.cFileName);
+			commondll::plugin* plugin = commondll::pluginManager::instance().loadPlugin(fileData.cFileName);
 			if (plugin != NULL)
-				plugins.push_back(plugin);
+				w.plugins.push_back(plugin);
 		} while (FindNextFile(fileHandle, &fileData));
 	}
 
-	if (!wmiInitialize())
-	{
+	if (!sGL::gameDetection::instance().wmiInitialize())
 		return true;
-	}
 
-	QApplication a(argc, argv);
-	sourceGameLounge w;
 	w.show();
 	int ret = a.exec();
 
-	for (plugin* plugin : plugins)
-		pluginManager::instance().unloadPlugin(plugin);
-
 	try
 	{
-		sC.save("config.xml");
+		sGL::config::instance().save(".\\configs\\config.xml");
 	}
 	catch (std::exception &e)
 	{
-		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, NULL, 0);
-		WCHAR *pwszError = new WCHAR[size_needed];
-		MultiByteToWideChar(CP_UTF8, 0, e.what(), -1, pwszError, size_needed);
-
-		displayError(pwszError);
-
-		delete[] pwszError;
+		displayErrorA(e.what());
 	}
+
+	for (commondll::plugin* plugin : w.plugins)
+		commondll::pluginManager::instance().unloadPlugin(plugin);
 
 	return ret;
 }
