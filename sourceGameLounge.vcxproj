@@ -37,24 +37,24 @@
       <PreprocessorDefinitions>WIN32;_WINDOWS;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;SOURCEGAMELOUNGE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\commonDLL;$(BOOSTDIR);.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <StringPooling>
-      </StringPooling>
+      <StringPooling>true</StringPooling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
-      <FloatingPointExceptions>
-      </FloatingPointExceptions>
-      <CreateHotpatchableImage>
-      </CreateHotpatchableImage>
-      <OpenMPSupport>
-      </OpenMPSupport>
+      <CreateHotpatchableImage>false</CreateHotpatchableImage>
+      <OpenMPSupport>false</OpenMPSupport>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
       <SDLCheck>true</SDLCheck>
       <DebugInformationFormat>None</DebugInformationFormat>
       <OmitFramePointers>true</OmitFramePointers>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <CompileAsManaged>false</CompileAsManaged>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -63,8 +63,7 @@
       <AdditionalDependencies>commonDLL.lib;wbemuuid.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Version>
       </Version>
-      <LargeAddressAware>
-      </LargeAddressAware>
+      <LargeAddressAware>false</LargeAddressAware>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <FixedBaseAddress>
@@ -72,6 +71,16 @@
       <SupportUnloadOfDelayLoadedDLL>
       </SupportUnloadOfDelayLoadedDLL>
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
+      <LinkStatus>false</LinkStatus>
+      <ProgramDatabaseFile />
+      <AssemblyDebug>false</AssemblyDebug>
+      <HeapReserveSize>1048576</HeapReserveSize>
+      <HeapCommitSize>4096</HeapCommitSize>
+      <StackReserveSize>1048576</StackReserveSize>
+      <StackCommitSize>4096</StackCommitSize>
+      <TerminalServerAware>true</TerminalServerAware>
+      <ProfileGuidedDatabase />
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -85,6 +94,9 @@ set config=.\program-dir\configs\config.xml
 if exist %config% del /f /q %config%</Command>
       <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
+    <CustomBuild>
+      <Message />
+    </CustomBuild>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />

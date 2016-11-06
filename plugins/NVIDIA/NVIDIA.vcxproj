@@ -38,23 +38,25 @@
       <AdditionalIncludeDirectories>..\..\commonDLL;..\..;$(BOOSTDIR);.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>None</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <StringPooling>
-      </StringPooling>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <FloatingPointExceptions>
       </FloatingPointExceptions>
-      <CreateHotpatchableImage>
-      </CreateHotpatchableImage>
+      <CreateHotpatchableImage>false</CreateHotpatchableImage>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <OpenMPSupport>
-      </OpenMPSupport>
+      <OpenMPSupport>false</OpenMPSupport>
       <CompileAs>CompileAsCpp</CompileAs>
       <SDLCheck>true</SDLCheck>
       <OmitFramePointers>true</OmitFramePointers>
+      <CompileAsManaged>false</CompileAsManaged>
+      <CompileAsWinRT>false</CompileAsWinRT>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>true</StringPooling>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -67,11 +69,20 @@
       </FixedBaseAddress>
       <Version>
       </Version>
-      <LargeAddressAware>
-      </LargeAddressAware>
+      <LargeAddressAware>false</LargeAddressAware>
       <SupportUnloadOfDelayLoadedDLL>
       </SupportUnloadOfDelayLoadedDLL>
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
+      <LinkStatus>false</LinkStatus>
+      <ProgramDatabaseFile />
+      <AssemblyDebug>false</AssemblyDebug>
+      <HeapReserveSize>1048576</HeapReserveSize>
+      <StackReserveSize>1048576</StackReserveSize>
+      <HeapCommitSize>4096</HeapCommitSize>
+      <StackCommitSize>4096</StackCommitSize>
+      <TerminalServerAware>false</TerminalServerAware>
+      <ProfileGuidedDatabase />
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>

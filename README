@@ -1,1 +1,83 @@
-work in progress
+********************************************************************************
+sourceGL is now sourceGameLounge
+********************************************************************************
+
+  Along with the renaming, sourceGameLounge will now be open-source. It will
+  continue to be free. It has been completely rewritten from the ground up in a
+  completely different code. So it is currently not planned to have it as an
+  update from sourceGL, meaning that it will not carry over sourceGL's settings.
+  Other design plans for the new code are to make the releases portable and to
+  utilize a plugin design to handle most of the program functionality, except
+  the most basic core functions. This means that unused and unwanted functions
+  can be not loaded or deleted to save drive space and reduce the memory
+  footprint. And third-party plugins can be developed to make sourceGameLounge
+  do practically anything you want. There will be several officially maintained
+  plugins covering the most popular features that will be distributed with the
+  main program.
+  
+  
+********************************************************************************
+Versioning
+********************************************************************************
+
+  I'm attempting to use separate semantic versioning (http://semver.org/) for
+  the main program and for each plugin, to make it more clear where the updates
+  are occurring. I am currently very early in the initial development phase, so
+  the versioning will be changing very rapidly and is somewhat arbitrary.
+  Versioning has been reset and is not congruent with sourceGL versions.
+  
+  Current versions of the main program and the plugins that have been at least
+  partially implemented:
+  
+    - sourceGameLounge 0.2.1
+	- NVIDIA plugin 0.1.0
+	
+		
+********************************************************************************
+Distribution
+********************************************************************************
+
+  - Main program modules in root directory
+  - Plugin system is a separate DLL project in commonDLL folder
+  - Plugins are separate DLL projects, each in their own folder within the
+    plugins folder
+  - A 'template' plugin project is in the plugin folder, to serve as a blank
+    guide for demonstrating the requirements for coding a third-party plugin
+  - Files to generate/modify the GUI are provided, including the images folder
+  - The project files will automically copy the build's runtime files into the
+    program-dir folder, which includes all the other files to make the contents
+	of that folder like portable releases
+		
+	
+********************************************************************************
+Utilized build tools
+********************************************************************************
+
+  - Microsoft Visual Studio Community 2013
+      - http://go.microsoft.com/fwlink/?LinkId=517284
+  - Qt Open Source 5.7.0 for VS 2013
+      - http://qt.io/download-open-source/#section-2
+  - Visual Studio Add-in 1.2.5 for Qt5
+      - http://download.qt.io/official_releases/vsaddin/qt-vs-addin-1.2.5.exe
+  - Boost Version 1.62.0
+      - http://boost.org/users/history/version_1_62_0.html
+	  
+	  
+********************************************************************************
+Build notes
+********************************************************************************
+	  
+  - BOOSTDIR needs to be defined as a macro in VS 2013 in order for the project
+	additional include/library directories to work as-is, for example with the
+	default install folder: $(BOOSTDIR) = C:\Program Files\boost\boost_1_62_0
+  - QTDIR may need to be user defined as a macro, but the Qt Add-in should do
+    this, with the default install folder: $(QTDIR) = C:\Qt\Qt5.7.0\5.7\msvc2013
+  - Information on how to define macros in VS 2013: http://bit.ly/2fpK6P2
+  - Currently, everything is half-implemented, at best. Commenting is also very
+    poor right now and there is a lot of placeholder code that I've just been 
+	using to test basic functionality.
+  
+  
+********************************************************************************
+...more to come, this README is a very basic placeholder for now.
+********************************************************************************

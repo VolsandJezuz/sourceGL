@@ -38,18 +38,22 @@
       <PrecompiledHeaderFile />
       <PrecompiledHeaderOutputFile />
       <DebugInformationFormat>None</DebugInformationFormat>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <CompileAs>CompileAsCpp</CompileAs>
       <WarningLevel>Level3</WarningLevel>
-      <CompileAsManaged>
-      </CompileAsManaged>
-      <CompileAsWinRT>
-      </CompileAsWinRT>
+      <CompileAsManaged>false</CompileAsManaged>
+      <CompileAsWinRT>false</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <OmitFramePointers>true</OmitFramePointers>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <StringPooling>true</StringPooling>
+      <CreateHotpatchableImage>false</CreateHotpatchableImage>
+      <OpenMPSupport>false</OpenMPSupport>
+      <UseUnicodeForAssemblerListing>true</UseUnicodeForAssemblerListing>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -59,6 +63,17 @@
       <ImageHasSafeExceptionHandlers>true</ImageHasSafeExceptionHandlers>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
+      <LinkStatus>false</LinkStatus>
+      <ProgramDatabaseFile />
+      <AssemblyDebug>false</AssemblyDebug>
+      <HeapReserveSize>1048576</HeapReserveSize>
+      <StackReserveSize>1048576</StackReserveSize>
+      <HeapCommitSize>4096</HeapCommitSize>
+      <StackCommitSize>4096</StackCommitSize>
+      <LargeAddressAware>false</LargeAddressAware>
+      <TerminalServerAware>false</TerminalServerAware>
+      <ProfileGuidedDatabase />
+      <GenerateWindowsMetadata>false</GenerateWindowsMetadata>
     </Link>
     <ProjectReference />
     <PostBuildEvent>
