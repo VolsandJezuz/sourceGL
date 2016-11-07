@@ -33,7 +33,7 @@
 	
 		
 ********************************************************************************
- Distribution
+ Repository structure
 ********************************************************************************
 
   - Main program modules in root directory
@@ -45,7 +45,7 @@
   - Files to generate/modify the GUI are provided, including the images folder
   - The project files will automically copy the build's runtime files into the
     program-dir folder, which includes all the other files to make the contents
-    of that folder like portable releases
+    of that folder equivalent to a portable release.
 		
 	
 ********************************************************************************
