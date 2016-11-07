@@ -19,8 +19,6 @@ public:
 	sourceGameLounge(QWidget *parent = 0);
 	~sourceGameLounge() = default;
 
-	std::vector<commondll::plugin*> plugins;
-
 private:
 	Ui::sourceGameLoungeClass ui;
 };

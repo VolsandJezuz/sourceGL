@@ -8,6 +8,15 @@ sourceGameLounge::sourceGameLounge(QWidget *parent) : QMainWindow(parent)
 	commondll::commonDLL::instance().addName("sourceGameLounge");
 
 	ui.setupUi(this);
+
+	ui.helpOnIcon->hide();
+	ui.updatingIcon5->hide();
+	ui.updatingIcon4->hide();
+	ui.updatingIcon3->hide();
+	ui.updatingIcon2->hide();
+	ui.updatingIcon1->hide();
+	ui.updatingIcon0->hide();
+	ui.updateCheckedIcon->hide();
 }
 
 } // namespace sGL

@@ -9,15 +9,12 @@
 #include "gameDetection.h"
 #include "pluginManager.h"
 #include <QtWidgets/QApplication>
+#include <vector>
 #include <Windows.h>
 
 int main(int argc, char *argv[])
 {
-	HRESULT hres;
-
-	hres = CoInitializeEx(0, COINIT_MULTITHREADED);
-	if (FAILED(hres))
-		displayError(std::to_wstring(hres).c_str());
+	HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
 
 	QApplication a(argc, argv);
 	sGL::sourceGameLounge w;
@@ -40,7 +37,9 @@ int main(int argc, char *argv[])
 		displayErrorA(e.what());
 	}
 
+	std::vector<commondll::plugin*> plugins;
 	WIN32_FIND_DATA fileData;
+
 	HANDLE fileHandle = FindFirstFile(TEXT(".\\plugins\\*.dll"), &fileData);
 	if (fileHandle == (void*)ERROR_INVALID_HANDLE || fileHandle == (void*)ERROR_FILE_NOT_FOUND)
 		displayError(L"No plugins were found.");
@@ -50,7 +49,7 @@ int main(int argc, char *argv[])
 		{
 			commondll::plugin* plugin = commondll::pluginManager::instance().loadPlugin(fileData.cFileName);
 			if (plugin != NULL)
-				w.plugins.push_back(plugin);
+				plugins.push_back(plugin);
 		} while (FindNextFile(fileHandle, &fileData));
 	}
 
@@ -69,7 +68,7 @@ int main(int argc, char *argv[])
 		displayErrorA(e.what());
 	}
 
-	for (commondll::plugin* plugin : w.plugins)
+	for (commondll::plugin* plugin : plugins)
 		commondll::pluginManager::instance().unloadPlugin(plugin);
 
 	return ret;

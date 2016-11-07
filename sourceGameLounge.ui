@@ -66,7 +66,10 @@
      <bold>true</bold>
     </font>
    </property>
-   <widget class="QLabel" name="mainBarIcon">
+   <widget class="QLabel" name="mainIcon">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -106,7 +109,7 @@
      <number>0</number>
     </property>
     <property name="text">
-     <string/>
+     <string notr="true"/>
     </property>
     <property name="pixmap">
      <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/mainBarIcon.png</pixmap>
@@ -118,7 +121,10 @@
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-   <widget class="QLabel" name="mainBarTitle">
+   <widget class="QLabel" name="mainTitle">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>78</x>
@@ -151,12 +157,6 @@
       <pointsize>8</pointsize>
      </font>
     </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(6, 6, 6);</string>
     </property>
@@ -164,13 +164,16 @@
      <number>0</number>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16px; font-weight:496; color:#ffffff;&quot;&gt;source&lt;/span&gt;&lt;br/&gt;&lt;span style=&quot; font-size:20px; font-weight:496; color:#ffa500;&quot;&gt;GameLounge&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16px; font-weight:496; color:#ffffff;&quot;&gt;source&lt;/span&gt;&lt;br/&gt;&lt;span style=&quot; font-size:20px; font-weight:496; color:#ffa500;&quot;&gt;GameLounge&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="textInteractionFlags">
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
    <widget class="Line" name="line1">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>235</x>
@@ -213,64 +216,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="gamesButton">
-    <property name="geometry">
-     <rect>
-      <x>236</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(34, 34, 34);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;GAMES&lt;/span&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>1</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
    <widget class="Line" name="line2">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>326</x>
@@ -313,64 +262,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="gameSettingsButton">
-    <property name="geometry">
-     <rect>
-      <x>327</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;GAME&lt;br/&gt;SETTINGS&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>3</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
    <widget class="Line" name="line3">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>417</x>
@@ -413,64 +308,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="programSettingsButton">
-    <property name="geometry">
-     <rect>
-      <x>418</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;PROGRAM&lt;br/&gt;SETTINGS&lt;/span&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>3</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
    <widget class="Line" name="line4">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>508</x>
@@ -513,64 +354,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="updateButton">
-    <property name="geometry">
-     <rect>
-      <x>509</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;UPDATE&lt;/span&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>1</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
    <widget class="Line" name="line5">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>599</x>
@@ -613,64 +400,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="exitButton">
-    <property name="geometry">
-     <rect>
-      <x>782</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;EXIT&lt;/span&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>1</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
    <widget class="Line" name="line6">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>690</x>
@@ -713,235 +446,10 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QStackedWidget" name="stackedWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>78</y>
-      <width>872</width>
-      <height>466</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>872</width>
-      <height>466</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>872</width>
-      <height>466</height>
-     </size>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="currentIndex">
-     <number>1</number>
-    </property>
-    <widget class="QWidget" name="gamesPane">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>872</width>
-       <height>466</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>872</width>
-       <height>466</height>
-      </size>
-     </property>
-     <property name="autoFillBackground">
-      <bool>false</bool>
-     </property>
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <widget class="QScrollArea" name="gamesPane_scrollArea">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>872</width>
-        <height>466</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>872</width>
-        <height>466</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>872</width>
-        <height>466</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="widgetResizable">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-      </property>
-      <widget class="QWidget" name="gamesPane_scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>855</width>
-         <height>466</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>855</width>
-         <height>466</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>855</width>
-         <height>466</height>
-        </size>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="gameSettingsPane">
-     <widget class="QScrollArea" name="gameSettingsPane_scrollArea">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>872</width>
-        <height>466</height>
-       </rect>
-      </property>
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>872</width>
-        <height>466</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>872</width>
-        <height>466</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
-      </property>
-      <property name="lineWidth">
-       <number>0</number>
-      </property>
-      <property name="widgetResizable">
-       <bool>false</bool>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-      </property>
-      <widget class="QWidget" name="gameSettingsPane_scrollAreaWidgetContents">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>855</width>
-         <height>466</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>855</width>
-         <height>466</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>855</width>
-         <height>466</height>
-        </size>
-       </property>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="programSettingsPane">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>872</width>
-       <height>466</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>872</width>
-       <height>466</height>
-      </size>
-     </property>
-    </widget>
-    <widget class="QWidget" name="aboutPane"/>
-   </widget>
    <widget class="Line" name="line7">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>781</x>
@@ -984,70 +492,13 @@
      <enum>Qt::Vertical</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="aboutButton">
-    <property name="geometry">
-     <rect>
-      <x>600</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;ABOUT&lt;/span&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>1</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="gamesButtonIcon">
+   <widget class="QPushButton" name="gamesButton">
     <property name="geometry">
      <rect>
       <x>236</x>
       <y>0</y>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1059,55 +510,60 @@
     <property name="minimumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(34, 34, 34);</string>
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
     </property>
-    <property name="lineWidth">
-     <number>0</number>
+    <property name="iconSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
     </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/gamesIcon.png</pixmap>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+    <property name="checked">
+     <bool>true</bool>
     </property>
-    <property name="margin">
-     <number>0</number>
+    <property name="autoExclusive">
+     <bool>true</bool>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="gameSettingsButtonIcon">
+   <widget class="QScrollArea" name="gamesPane">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>327</x>
-      <y>0</y>
-      <width>90</width>
-      <height>44</height>
+      <x>0</x>
+      <y>78</y>
+      <width>872</width>
+      <height>466</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1118,56 +574,352 @@
     </property>
     <property name="minimumSize">
      <size>
-      <width>90</width>
-      <height>44</height>
+      <width>872</width>
+      <height>466</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>90</width>
-      <height>44</height>
+      <width>872</width>
+      <height>466</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="lineWidth">
      <number>0</number>
     </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/gameSettingsIcon.png</pixmap>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
     </property>
     <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
-    <property name="margin">
+    <widget class="QWidget" name="gamesPaneContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>855</width>
+       <height>466</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="gameSettingsPane">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>78</y>
+      <width>872</width>
+      <height>466</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 0, 0);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
      <number>0</number>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <widget class="QWidget" name="gameSettingsPaneContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>855</width>
+       <height>466</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+    </widget>
    </widget>
-   <widget class="QLabel" name="programSettingsButtonIcon">
+   <widget class="QScrollArea" name="programSettingsPane">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>78</y>
+      <width>872</width>
+      <height>466</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <widget class="QWidget" name="programSettingsPaneContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>855</width>
+       <height>466</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="aboutPane">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>78</y>
+      <width>872</width>
+      <height>466</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(250, 102, 255);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="sizeAdjustPolicy">
+     <enum>QAbstractScrollArea::AdjustIgnored</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <widget class="QWidget" name="aboutPaneContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>855</width>
+       <height>466</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="programSettingsButton">
     <property name="geometry">
      <rect>
       <x>418</x>
       <y>0</y>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1179,55 +931,149 @@
     <property name="minimumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
+    <property name="acceptDrops">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
     </property>
-    <property name="lineWidth">
-     <number>0</number>
+    <property name="text">
+     <string notr="true"/>
     </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/programSettingsIcon.png</pixmap>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+    <property name="checked">
+     <bool>false</bool>
     </property>
-    <property name="margin">
-     <number>0</number>
+    <property name="autoExclusive">
+     <bool>true</bool>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="aboutButtonIcon">
+   <widget class="QScrollArea" name="updatePane">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>600</x>
+      <x>0</x>
+      <y>78</y>
+      <width>872</width>
+      <height>466</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>872</width>
+      <height>466</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="widgetResizable">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
+    <widget class="QWidget" name="updatePaneContents">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>855</width>
+       <height>466</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>855</width>
+       <height>466</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="gameSettingsButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>327</x>
       <y>0</y>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1239,55 +1085,57 @@
     <property name="minimumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
     </property>
-    <property name="lineWidth">
-     <number>0</number>
+    <property name="text">
+     <string notr="true"/>
     </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/aboutIcon.png</pixmap>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+    <property name="checked">
+     <bool>false</bool>
     </property>
-    <property name="margin">
-     <number>0</number>
+    <property name="autoExclusive">
+     <bool>true</bool>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="updateButtonIcon">
+   <widget class="QPushButton" name="updateButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>509</x>
       <y>0</y>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1299,55 +1147,196 @@
     <property name="minimumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
+    <property name="acceptDrops">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
     </property>
-    <property name="lineWidth">
-     <number>0</number>
+    <property name="text">
+     <string notr="true"/>
     </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updateIcon.png</pixmap>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+    <property name="checked">
+     <bool>false</bool>
     </property>
-    <property name="margin">
-     <number>0</number>
+    <property name="autoExclusive">
+     <bool>true</bool>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="exitButtonIcon">
+   <widget class="QPushButton" name="aboutButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>600</x>
+      <y>0</y>
+      <width>90</width>
+      <height>78</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>90</width>
+      <height>78</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>90</width>
+      <height>78</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="helpButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>691</x>
+      <y>0</y>
+      <width>90</width>
+      <height>78</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>90</width>
+      <height>78</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>90</width>
+      <height>78</height>
+     </size>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="exitButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>782</x>
       <y>0</y>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1359,112 +1348,57 @@
     <property name="minimumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
       <width>90</width>
-      <height>44</height>
+      <height>78</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
     </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
+    <property name="acceptDrops">
      <bool>false</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/exitIcon.png</pixmap>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>0</number>
-    </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
-    </property>
-   </widget>
-   <widget class="QLabel" name="helpButton">
-    <property name="geometry">
-     <rect>
-      <x>691</x>
-      <y>44</y>
-      <width>90</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>90</width>
-      <height>34</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
+     <string notr="true">QPushButton {
+    background-color: rgba(6, 6, 6, 100%);
+}
+
+QPushButton:pressed {
+    background-color: rgba(34, 34, 34, 100%);
+}
+
+QPushButton:hover {
+    background-color: rgba(34, 34, 34, 100%);
+}</string>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;span style=&quot;color:#ffffff; font-size: 11px;&quot;&gt;HELP&lt;/span&gt;&lt;br/&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string notr="true"/>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
-    <property name="margin">
-     <number>1</number>
+    <property name="checked">
+     <bool>false</bool>
     </property>
-    <property name="textInteractionFlags">
-     <set>Qt::NoTextInteraction</set>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="updateButtonIcon_2">
+   <widget class="QLabel" name="helpOnIcon">
     <property name="geometry">
      <rect>
-      <x>691</x>
-      <y>0</y>
-      <width>90</width>
-      <height>44</height>
+      <x>706</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -1475,54 +1409,459 @@
     </property>
     <property name="minimumSize">
      <size>
-      <width>90</width>
-      <height>44</height>
+      <width>60</width>
+      <height>70</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>90</width>
-      <height>44</height>
+      <width>60</width>
+      <height>70</height>
      </size>
     </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>6</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="mouseTracking">
-     <bool>true</bool>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(6, 6, 6);</string>
+     <string notr="true"/>
     </property>
     <property name="lineWidth">
      <number>0</number>
     </property>
     <property name="pixmap">
-     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/helpIcon.png</pixmap>
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/helpOnIcon.png</pixmap>
     </property>
-    <property name="alignment">
-     <set>Qt::AlignBottom|Qt::AlignHCenter</set>
-    </property>
-    <property name="margin">
-     <number>0</number>
+    <property name="indent">
+     <number>-1</number>
     </property>
     <property name="textInteractionFlags">
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
+   <widget class="QLabel" name="updatingIcon5">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon5.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updatingIcon4">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon4.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updatingIcon3">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon3.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updatingIcon2">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon2.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updatingIcon1">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon1.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updatingIcon0">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updatingIcon0.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="updateCheckedIcon">
+    <property name="geometry">
+     <rect>
+      <x>524</x>
+      <y>4</y>
+      <width>60</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>60</width>
+      <height>70</height>
+     </size>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="pixmap">
+     <pixmap resource="sourceGameLounge.qrc">:/sourceGameLounge/images/updateCheckedIcon.png</pixmap>
+    </property>
+    <property name="indent">
+     <number>-1</number>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
+   <zorder>mainIcon</zorder>
+   <zorder>mainTitle</zorder>
+   <zorder>line1</zorder>
+   <zorder>line2</zorder>
+   <zorder>line3</zorder>
+   <zorder>line4</zorder>
+   <zorder>line5</zorder>
+   <zorder>line6</zorder>
+   <zorder>line7</zorder>
+   <zorder>gamesButton</zorder>
+   <zorder>programSettingsButton</zorder>
+   <zorder>updatePane</zorder>
+   <zorder>aboutPane</zorder>
+   <zorder>programSettingsPane</zorder>
+   <zorder>gameSettingsPane</zorder>
+   <zorder>gamesPane</zorder>
+   <zorder>gameSettingsButton</zorder>
+   <zorder>updateButton</zorder>
+   <zorder>aboutButton</zorder>
+   <zorder>helpButton</zorder>
+   <zorder>exitButton</zorder>
+   <zorder>updatingIcon5</zorder>
+   <zorder>updatingIcon4</zorder>
+   <zorder>updatingIcon3</zorder>
+   <zorder>updatingIcon2</zorder>
+   <zorder>updatingIcon1</zorder>
+   <zorder>updatingIcon0</zorder>
+   <zorder>updateCheckedIcon</zorder>
+   <zorder>helpOnIcon</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="sourceGameLounge.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>programSettingsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>programSettingsPane</receiver>
+   <slot>raise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>462</x>
+     <y>60</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exitButton</sender>
+   <signal>clicked()</signal>
+   <receiver>sourceGameLoungeClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gameSettingsButton</sender>
+   <signal>clicked()</signal>
+   <receiver>gameSettingsPane</receiver>
+   <slot>raise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>371</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>updateButton</sender>
+   <signal>clicked()</signal>
+   <receiver>updatePane</receiver>
+   <slot>raise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>553</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>aboutButton</sender>
+   <signal>clicked()</signal>
+   <receiver>aboutPane</receiver>
+   <slot>raise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>644</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>helpButton</sender>
+   <signal>clicked()</signal>
+   <receiver>helpOnIcon</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>735</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>735</x>
+     <y>38</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gamesButton</sender>
+   <signal>clicked()</signal>
+   <receiver>gamesPane</receiver>
+   <slot>raise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

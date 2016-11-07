@@ -24,8 +24,8 @@ public:
 private:
 	typedef std::map<std::wstring, plugin*> pluginMap;
 	typedef std::map<std::wstring, HMODULE> libraryMap;
-	typedef void(*fnDisplayError_t)(LPCWSTR pwszError);
-	typedef void(*fnDisplayErrorA_t)(LPCSTR pszError);
+	typedef void (*fnDisplayError_t)(LPCWSTR pwszError);
+	typedef void (*fnDisplayErrorA_t)(LPCSTR pszError);
 
 	pluginManager();
 	~pluginManager();

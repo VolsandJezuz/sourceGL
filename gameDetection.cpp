@@ -200,7 +200,7 @@ bool gameDetection::wmiInitialize()
 	}
 
 	pUnsecApp = NULL;
-	CoCreateInstance(CLSID_UnsecuredApartment, NULL, CLSCTX_LOCAL_SERVER, IID_IUnsecuredApartment, (void**)&pUnsecApp);
+	hres = CoCreateInstance(CLSID_UnsecuredApartment, NULL, CLSCTX_LOCAL_SERVER, IID_IUnsecuredApartment, (void**)&pUnsecApp);
 
 	pSink = new EventSink;
 	pSink->AddRef();
