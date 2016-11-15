@@ -1,6 +1,3 @@
-#define STRICT
-#define WIN32_LEAN_AND_MEAN
-
 #include "NVIDIAconfig.h"
 #include "NVIDIA.h"
 #include "config.h"
@@ -8,7 +5,6 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/xml_parser.hpp>
 #include <filesystem>
-#include <Windows.h>
 
 namespace nvidia {
 
@@ -33,18 +29,18 @@ void NVIDIAconfig::load(const std::string &filename)
 			// make changes for old PLUGIN_NVIDIA_VER
 			NVIDIAconfigVersion = currentNVIDIAconfigVersion;
 		}
+	}
 
-		BOOST_FOREACH(const std::string &game, *sGL::config::instance().games)
+	BOOST_FOREACH(const std::string &game, *sGL::config::instance().games)
+	{
+		std::vector<std::pair<std::string, boost::variant<std::string, int, bool>>> settings =
 		{
-			std::vector<std::pair<std::string, boost::variant<std::string, int, bool>>> settings =
-			{
-				{"setting1", pt.get<bool>(("NVIDIA." + game + ".setting1").c_str(), false)},
-				{"setting2", pt.get<int>(("NVIDIA." + game + ".setting2").c_str(), 0)},
-				{"setting3", pt.get<std::string>(("NVIDIA." + game + ".setting3").c_str(), "none")}
-			};
+			{"setting1", pt.get<bool>(("NVIDIA." + game + ".setting1").c_str(), false)},
+			{"setting2", pt.get<int>(("NVIDIA." + game + ".setting2").c_str(), 0)},
+			{"setting3", pt.get<std::string>(("NVIDIA." + game + ".setting3").c_str(), "none")}
+		};
 
-			gameSettings.insert({game, settings});
-		}
+		gameSettings.insert({game, settings});
 	}
 }
 

@@ -34,10 +34,13 @@ void config::load(const std::string &filename)
 		BOOST_FOREACH(boost::property_tree::ptree::value_type &v, pt.get_child("sGL.Games"))
 			(*games).push_back(v.second.data());
 
-		runAtWindowsStartup = pt.get<bool>("sGL.ProgramSettings.RunAtWindowsStartup", false);
-		minToTrayStartup = pt.get<bool>("sGL.ProgramSettings.MinimizeToTrayOnStartup", false);
-		autoExit = pt.get<bool>("sGL.ProgramSettings.AutoExitAfterRunningGame", false);
+		optOutSteamID = pt.get<bool>("sGL.ProgramSettings.OptOutSteamID");
+		runAtWindowsStartup = pt.get<bool>("sGL.ProgramSettings.RunAtWindowsStartup");
+		minToTrayStartup = pt.get<bool>("sGL.ProgramSettings.MinimizeToTrayOnStartup");
+		autoExit = pt.get<bool>("sGL.ProgramSettings.AutoExitAfterRunningGame");
 	}
+	else
+		(*games).push_back("Hotkey-on-demand");
 }
 
 void config::save(const std::string &filename)
@@ -50,6 +53,7 @@ void config::save(const std::string &filename)
 	BOOST_FOREACH(const std::string &game, *games)
 		pt.add("sGL.Games.Game", game);
 
+	pt.put("sGL.ProgramSettings.OptOutSteamID", optOutSteamID);
 	pt.put("sGL.ProgramSettings.RunAtWindowsStartup", runAtWindowsStartup);
 	pt.put("sGL.ProgramSettings.MinimizeToTrayOnStartup", minToTrayStartup);
 	pt.put("sGL.ProgramSettings.AutoExitAfterRunningGame", autoExit);
@@ -59,9 +63,14 @@ void config::save(const std::string &filename)
 
 config::config()
 {
+	configVersion = COMMONDLL_API_VER;
+
 	games = new std::vector<std::string>();
 
-	configVersion = COMMONDLL_API_VER;
+	optOutSteamID = false;
+	runAtWindowsStartup = false;
+	minToTrayStartup = false;
+	autoExit = false;
 	// functions to get steam32ID and other default values
 }
 

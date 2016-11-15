@@ -2,9 +2,7 @@
 #define CONFIG_H
 
 #include "c99defs.h"
-#include "plugin.h"
 #include <string>
-#include <thread>
 #include <vector>
 
 #ifdef SOURCEGAMELOUNGE_EXPORTS
@@ -25,6 +23,7 @@ public:
 	uint32_t configVersion;
 	uint32_t steam32ID;
 	std::vector<std::string>* games;
+	bool optOutSteamID;
 	bool runAtWindowsStartup;
 	bool minToTrayStartup;
 	bool autoExit;

@@ -1,20 +1,34 @@
 <RCC>
   <qresource prefix="sourceGameLounge">
-    <file>images/aboutIcon.png</file>
-    <file>images/exitIcon.png</file>
-    <file>images/gameSettingsIcon.png</file>
-    <file>images/gamesIcon.png</file>
-    <file>images/helpIcon.png</file>
-    <file>images/helpOnIcon.png</file>
-    <file>images/programSettingsIcon.png</file>
-    <file>images/updateCheckedIcon.png</file>
-    <file>images/updateIcon.png</file>
     <file>images/updatingIcon0.png</file>
+    <file>images/updatingIcon0Disabled.png</file>
     <file>images/updatingIcon1.png</file>
+    <file>images/updatingIcon1Disabled.png</file>
     <file>images/updatingIcon2.png</file>
+    <file>images/updatingIcon2Disabled.png</file>
     <file>images/updatingIcon3.png</file>
+    <file>images/updatingIcon3Disabled.png</file>
     <file>images/updatingIcon4.png</file>
+    <file>images/updatingIcon4Disabled.png</file>
     <file>images/updatingIcon5.png</file>
+    <file>images/updatingIcon5Disabled.png</file>
+    <file>images/exitIcon.png</file>
+    <file>images/updatingCheckedIcon.png</file>
+    <file>images/updatingCheckedIconDisabled.png</file>
+    <file>images/exitIconDisabled.png</file>
+    <file>images/helpIconHover.png</file>
+    <file>images/helpIcon.png</file>
+    <file>images/helpIconDisabled.png</file>
+    <file>images/aboutIcon.png</file>
+    <file>images/aboutIconDisabled.png</file>
+    <file>images/updateIcon.png</file>
+    <file>images/updateIconDisabled.png</file>
+    <file>images/programSettingsIcon.png</file>
+    <file>images/programSettingsIconDisabled.png</file>
+    <file>images/gamesIcon.png</file>
+    <file>images/gamesIconDisabled.png</file>
+    <file>images/gameSettingsIcon.png</file>
+    <file>images/gameSettingsIconDisabled.png</file>
     <file>images/mainBarIcon.png</file>
   </qresource>
 </RCC>

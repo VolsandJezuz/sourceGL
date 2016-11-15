@@ -1,23 +1,17 @@
-#define STRICT
-#define WINVER 0x0501
-#define _WIN32_WINNT 0x0501
-#define _WIN32_WINDOWS 0x0501
-#define WIN32_LEAN_AND_MEAN
-
 #include "sourceGameLounge.h"
-#include "config.h"
 #include "gameDetection.h"
 #include "pluginManager.h"
-#include <QtWidgets/QApplication>
 #include <vector>
-#include <Windows.h>
+
+QApplication* g_a;
+sGL::sourceGameLounge* g_w;
 
 int main(int argc, char *argv[])
 {
 	HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
 
-	QApplication a(argc, argv);
-	sGL::sourceGameLounge w;
+	g_a = new QApplication(argc, argv);
+	g_w = new sGL::sourceGameLounge();
 
 	try
 	{
@@ -56,8 +50,8 @@ int main(int argc, char *argv[])
 	if (!sGL::gameDetection::instance().wmiInitialize())
 		return true;
 
-	w.show();
-	int ret = a.exec();
+	(*g_w).show();
+	int ret = (*g_a).exec();
 
 	try
 	{
@@ -70,6 +64,11 @@ int main(int argc, char *argv[])
 
 	for (commondll::plugin* plugin : plugins)
 		commondll::pluginManager::instance().unloadPlugin(plugin);
+
+	delete g_w;
+	g_w = NULL;
+	delete g_a;
+	g_a = NULL;
 
 	return ret;
 }
