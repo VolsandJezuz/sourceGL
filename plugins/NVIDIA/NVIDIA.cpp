@@ -6,47 +6,12 @@
 
 namespace nvidia {
 
-static pluginNVIDIA* g_pluginNVIDIA = NULL;
-static NvAPI* g_cNvAPI = NULL;
+static PluginNVIDIA* g_pPluginNVIDIA = NULL;
+static NvAPI* g_pNvAPI = NULL;
 
-pluginNVIDIA::pluginNVIDIA()
+PluginNVIDIA::PluginNVIDIA()
 {
-	commondll::commonDLL::instance().addName("NVIDIA");
-
-	try
-	{
-		NVIDIAconfig::instance().load(".\\configs\\plugins\\NVIDIA_config.xml");
-	}
-	catch (std::exception &e)
-	{
-		commondll::pluginManager::instance().displayErrorA(e.what());
-	}
-
-	try
-	{
-		NVIDIAconfig::instance().save(".\\configs\\plugins\\NVIDIA_config.xml");
-	}
-	catch (std::exception &e)
-	{
-		commondll::pluginManager::instance().displayErrorA(e.what());
-	}
-}
-
-pluginNVIDIA::~pluginNVIDIA()
-{
-	try
-	{
-		NVIDIAconfig::instance().save(".\\configs\\plugins\\NVIDIA_config.xml");
-	}
-	catch (std::exception &e)
-	{
-		commondll::pluginManager::instance().displayErrorA(e.what());
-	}
-
-	g_cNvAPI->Stop();
-
-	delete g_cNvAPI;
-	g_cNvAPI = NULL;
+	commondll::CommonDLL::instance().addName("NVIDIA");
 }
 
 NVIDIA::NVIDIA(QWidget *parent) : QDialog(parent)
@@ -56,28 +21,55 @@ NVIDIA::NVIDIA(QWidget *parent) : QDialog(parent)
 
 } // namespace nvidia
 
-extern "C" PLUGIN_NVIDIA_API commondll::plugin* createPlugin()
+extern "C" PLUGIN_NVIDIA_API commondll::Plugin* createPlugin()
 {
-	nvidia::g_cNvAPI = new nvidia::NvAPI();
+	nvidia::g_pNvAPI = new nvidia::NvAPI();
 
-	if (!nvidia::g_cNvAPI->Initialize())
+	if (!nvidia::g_pNvAPI->initialize())
 	{
-		if (nvidia::g_cNvAPI->hDLL)
-			nvidia::g_cNvAPI->Stop();
-
-		delete nvidia::g_cNvAPI;
-		nvidia::g_cNvAPI = NULL;
+		delete nvidia::g_pNvAPI;
+		nvidia::g_pNvAPI = NULL;
 
 		return NULL;
 	}
 
-	nvidia::g_pluginNVIDIA = new nvidia::pluginNVIDIA();
+	nvidia::g_pPluginNVIDIA = new nvidia::PluginNVIDIA();
 
-	return nvidia::g_pluginNVIDIA;
+	try
+	{
+		nvidia::NVIDIAconfig::instance().load(".\\configs\\plugins\\NVIDIA_config.xml");
+	}
+	catch (std::exception &e)
+	{
+		commondll::PluginManager::instance().displayErrorA(e.what());
+	}
+
+	try
+	{
+		nvidia::NVIDIAconfig::instance().save(".\\configs\\plugins\\NVIDIA_config.xml");
+	}
+	catch (std::exception &e)
+	{
+		commondll::PluginManager::instance().displayErrorA(e.what());
+	}
+
+	return nvidia::g_pPluginNVIDIA;
 }
 
 extern "C" PLUGIN_NVIDIA_API void destroyPlugin()
 {
-	delete nvidia::g_pluginNVIDIA;
-	nvidia::g_pluginNVIDIA = NULL;
+	try
+	{
+		nvidia::NVIDIAconfig::instance().save(".\\configs\\plugins\\NVIDIA_config.xml");
+	}
+	catch (std::exception &e)
+	{
+		commondll::PluginManager::instance().displayErrorA(e.what());
+	}
+
+	delete nvidia::g_pNvAPI;
+	nvidia::g_pNvAPI = NULL;
+
+	delete nvidia::g_pPluginNVIDIA;
+	nvidia::g_pPluginNVIDIA = NULL;
 }

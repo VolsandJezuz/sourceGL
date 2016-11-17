@@ -3,19 +3,19 @@
 #include "pluginManager.h"
 #include <vector>
 
-QApplication* g_a;
-sGL::sourceGameLounge* g_w;
+QApplication* g_pApplication;
+sgl::SourceGameLounge* g_pWindow;
 
 int main(int argc, char *argv[])
 {
 	HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
 
-	g_a = new QApplication(argc, argv);
-	g_w = new sGL::sourceGameLounge();
+	g_pApplication = new QApplication(argc, argv);
+	g_pWindow = new sgl::SourceGameLounge();
 
 	try
 	{
-		sGL::config::instance().load(".\\configs\\config.xml");
+		sgl::Config::instance().load(".\\configs\\config.xml");
 	}
 	catch (std::exception &e)
 	{
@@ -24,14 +24,14 @@ int main(int argc, char *argv[])
 
 	try
 	{
-		sGL::config::instance().save(".\\configs\\config.xml");
+		sgl::Config::instance().save(".\\configs\\config.xml");
 	}
 	catch (std::exception &e)
 	{
 		displayErrorA(e.what());
 	}
 
-	std::vector<commondll::plugin*> plugins;
+	std::vector<commondll::Plugin*> plugins;
 	WIN32_FIND_DATA fileData;
 
 	HANDLE fileHandle = FindFirstFile(TEXT(".\\plugins\\*.dll"), &fileData);
@@ -41,34 +41,34 @@ int main(int argc, char *argv[])
 	{
 		do
 		{
-			commondll::plugin* plugin = commondll::pluginManager::instance().loadPlugin(fileData.cFileName);
+			commondll::Plugin* plugin = commondll::PluginManager::instance().loadPlugin(fileData.cFileName);
 			if (plugin != NULL)
 				plugins.push_back(plugin);
 		} while (FindNextFile(fileHandle, &fileData));
 	}
 
-	if (!sGL::gameDetection::instance().wmiInitialize())
+	if (!sgl::GameDetection::instance().wmiInitialize(true))
 		return true;
 
-	(*g_w).show();
-	int ret = (*g_a).exec();
+	(*g_pWindow).show();
+	int ret = (*g_pApplication).exec();
 
 	try
 	{
-		sGL::config::instance().save(".\\configs\\config.xml");
+		sgl::Config::instance().save(".\\configs\\config.xml");
 	}
 	catch (std::exception &e)
 	{
 		displayErrorA(e.what());
 	}
 
-	for (commondll::plugin* plugin : plugins)
-		commondll::pluginManager::instance().unloadPlugin(plugin);
+	for (commondll::Plugin* plugin : plugins)
+		commondll::PluginManager::instance().unloadPlugin(plugin);
 
-	delete g_w;
-	g_w = NULL;
-	delete g_a;
-	g_a = NULL;
+	delete g_pWindow;
+	g_pWindow = NULL;
+	delete g_pApplication;
+	g_pApplication = NULL;
 
 	return ret;
 }

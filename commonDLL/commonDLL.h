@@ -12,24 +12,24 @@
 
 #define COMMONDLL_API_MAJOR_VER 0
 #define COMMONDLL_API_MINOR_VER 2
-#define COMMONDLL_API_PATCH_VER 3
+#define COMMONDLL_API_PATCH_VER 4
 #define MAKE_SEMANTIC_VERSION(major, minor, patch) ((major << 24) | (minor << 16) | patch)
 #define COMMONDLL_API_VER MAKE_SEMANTIC_VERSION(COMMONDLL_API_MAJOR_VER, COMMONDLL_API_MINOR_VER, COMMONDLL_API_PATCH_VER)
 
 namespace commondll {
 
-class commonDLL
+class CommonDLL
 {
 public:
-	static COMMONDLL_API commonDLL& instance();
+	static COMMONDLL_API CommonDLL& instance();
 	COMMONDLL_API void addName(const std::string& name);
 	COMMONDLL_API const std::vector<std::string>& getNames() const;
 
 private:
-	std::vector<std::string> m_names;
+	CommonDLL() = default;
+	virtual ~CommonDLL();
 
-	commonDLL() = default;
-	virtual ~commonDLL();
+	std::vector<std::string> m_names;
 };
 
 } // namespace commondll

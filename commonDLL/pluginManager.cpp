@@ -2,29 +2,29 @@
 
 namespace commondll {
 
-typedef plugin* (*fnCreatePlugin)();
-typedef void(*fnDestroyPlugin)();
+typedef Plugin* (*fnCreatePlugin)();
+typedef void (*fnDestroyPlugin)();
 
-COMMONDLL_API pluginManager& pluginManager::instance()
+COMMONDLL_API PluginManager& PluginManager::instance()
 {
-	static pluginManager pluginManager;
+	static PluginManager pluginManager;
 	return pluginManager;
 }
 
-COMMONDLL_API void pluginManager::displayError(LPCWSTR pwszError)
+COMMONDLL_API void PluginManager::displayError(LPCWSTR pwszError) const
 {
 	fnDisplayError(pwszError);
 }
 
-COMMONDLL_API void pluginManager::displayErrorA(LPCSTR pszError)
+COMMONDLL_API void PluginManager::displayErrorA(LPCSTR pszError) const
 {
 	fnDisplayErrorA(pszError);
 }
 
-COMMONDLL_API plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
+COMMONDLL_API Plugin* PluginManager::loadPlugin(const std::wstring& pluginName)
 {
 	std::wstring pwszError;
-	plugin* plugin = NULL;
+	Plugin* plugin = NULL;
 	pluginMap::iterator iter = m_plugins.find(pluginName);
 	if (iter == m_plugins.end())
 	{
@@ -65,7 +65,7 @@ COMMONDLL_API plugin* pluginManager::loadPlugin(const std::wstring& pluginName)
 	return plugin;
 }
 
-COMMONDLL_API void pluginManager::unloadPlugin(plugin*& plugin)
+COMMONDLL_API void PluginManager::unloadPlugin(Plugin*& plugin)
 {
 	if (plugin != NULL)
 	{
@@ -91,7 +91,7 @@ COMMONDLL_API void pluginManager::unloadPlugin(plugin*& plugin)
 	}
 }
 
-pluginManager::pluginManager()
+PluginManager::PluginManager()
 {
 	hDLL = LoadLibrary(TEXT("sourceGameLounge.exe"));
 	if (hDLL != NULL)
@@ -101,7 +101,7 @@ pluginManager::pluginManager()
 	}
 }
 
-pluginManager::~pluginManager()
+PluginManager::~PluginManager()
 {
 	if (hDLL != NULL)
 		FreeLibrary(hDLL);

@@ -2,25 +2,25 @@
 
 namespace commondll {
 
-commonDLL::~commonDLL()
+COMMONDLL_API CommonDLL& CommonDLL::instance()
 {
-	m_names.clear();
-}
-
-COMMONDLL_API commonDLL& commonDLL::instance()
-{
-	static commonDLL instance;
+	static CommonDLL instance;
 	return instance;
 }
 
-COMMONDLL_API void commonDLL::addName(const std::string& name)
+COMMONDLL_API void CommonDLL::addName(const std::string& name)
 {
 	m_names.push_back(name);
 }
 
-COMMONDLL_API const std::vector<std::string>& commonDLL::getNames() const
+COMMONDLL_API const std::vector<std::string>& CommonDLL::getNames() const
 {
 	return m_names;
+}
+
+CommonDLL::~CommonDLL()
+{
+	m_names.clear();
 }
 
 } // namespace commondll

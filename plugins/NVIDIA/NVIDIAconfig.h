@@ -19,7 +19,7 @@ public:
 	void load(const std::string &filename);
 	void save(const std::string &filename);
 
-	uint32_t NVIDIAconfigVersion;
+	uint32_t nvidiaConfigVersion;
 	gameSettings_t gameSettings;
 
 private:

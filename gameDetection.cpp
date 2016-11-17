@@ -1,8 +1,12 @@
-#include "sourceGameLounge.h"
 #include "gameDetection.h"
+#include "sourceGameLounge.h"
+#include <chrono>
+#include <thread>
 #include <comdef.h>
 
-namespace sGL {
+namespace sgl {
+
+VOID CALLBACK waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired);
 
 EventSink::EventSink()
 {
@@ -38,92 +42,95 @@ HRESULT EventSink::QueryInterface(REFIID riid, void** ppv)
 
 HRESULT EventSink::Indicate(long lObjectCount, IWbemClassObject **apObjArray)
 {
-	HRESULT hr = S_OK;
-	_variant_t vtProp;
-
-	gameDetection::instance().processMutex.lock();
-
-	for (int i = 0; i < lObjectCount; i++)
+	if (!GameDetection::instance().destructing)
 	{
-		if (gameDetection::instance().bProcessDetected)
-		{
-			gameDetection::instance().processMutex.unlock();
+		EnterCriticalSection(&GameDetection::instance().criticalSection);
 
-			return WBEM_S_NO_ERROR;
-		}
+		HRESULT hr = S_OK;
+		_variant_t vtProp;
 
-		hr = apObjArray[i]->Get(_bstr_t(L"TargetInstance"), 0, &vtProp, 0, 0);
-		if (!FAILED(hr))
+		for (int i = 0; i < lObjectCount; i++)
 		{
-			IUnknown* str = vtProp;
-			hr = str->QueryInterface(IID_IWbemClassObject, reinterpret_cast<void**>(&apObjArray[i]));
-			if (SUCCEEDED(hr))
+			if (GameDetection::instance().bProcessDetected || GameDetection::instance().destructing)
 			{
-				_variant_t cn;
+				LeaveCriticalSection(&GameDetection::instance().criticalSection);
 
-				hr = apObjArray[i]->Get(L"Caption", 0, &cn, NULL, NULL);
+				return WBEM_S_NO_ERROR;
+			}
+
+			hr = apObjArray[i]->Get(_bstr_t(L"TargetInstance"), 0, &vtProp, 0, 0);
+			if (!FAILED(hr))
+			{
+				IUnknown* str = vtProp;
+				hr = str->QueryInterface(IID_IWbemClassObject, reinterpret_cast<void**>(&apObjArray[i]));
 				if (SUCCEEDED(hr))
 				{
-					if ((cn.vt == VT_NULL) || (cn.vt == VT_EMPTY) || (cn.vt == VT_ARRAY))
-						lstrcpyW(gameDetection::instance().processName, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
-					else
-						lstrcpyW(gameDetection::instance().processName, cn.bstrVal);
+					_variant_t cn;
 
-					WCHAR *exes[] = {L"csgo.exe", L"hl2.exe", NULL}; // temporary
-					int n = 1; // temporary
-
-					while ((exes[n - 1] != NULL) && wcscmp(gameDetection::instance().processName, exes[n - 1])) // temporary
-						++n; // temporary
-
-					if (n < 3) // temporary
-						gameDetection::instance().bProcessDetected = true;
-				}
-
-				VariantClear(&cn);
-
-				/* Use process path to make sure it's the desired game
-
-				hr = apObjArray[i]->Get(L"CommandLine", 0, &cn, NULL, NULL);
-				if (SUCCEEDED(hr))
-				{
-				if ((cn.vt == VT_NULL) || (cn.vt == VT_EMPTY) || (cn.vt == VT_ARRAY))
-				lstrcpyW(gameDetection::instance().processPath, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
-				else
-				lstrcpyW(gameDetection::instance().processPath, cn.bstrVal);
-				}
-
-				VariantClear(&cn);*/
-
-				if (gameDetection::instance().bProcessDetected)
-				{
-					hr = apObjArray[i]->Get(L"Handle", 0, &cn, NULL, NULL);
+					hr = apObjArray[i]->Get(L"Caption", 0, &cn, NULL, NULL);
 					if (SUCCEEDED(hr))
 					{
 						if ((cn.vt == VT_NULL) || (cn.vt == VT_EMPTY) || (cn.vt == VT_ARRAY))
-						{
-							lstrcpyW(gameDetection::instance().processPID, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
-
-							gameDetection::instance().bProcessDetected = false;
-						}
+							lstrcpyW(GameDetection::instance().processName, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
 						else
-						{
-							lstrcpyW(gameDetection::instance().processPID, cn.bstrVal);
+							lstrcpyW(GameDetection::instance().processName, cn.bstrVal);
 
-							gameDetection::instance().processDetected();
-						}
+						WCHAR *exes[] = {L"csgo.exe", L"hl2.exe", NULL}; // temporary
+						int n = 1; // temporary
+
+						while ((exes[n - 1] != NULL) && wcscmp(GameDetection::instance().processName, exes[n - 1])) // temporary
+							++n; // temporary
+
+						if (n < 3) // temporary
+							GameDetection::instance().bProcessDetected = true;
 					}
-					else
-						gameDetection::instance().bProcessDetected = false;
 
 					VariantClear(&cn);
+
+					/* Use process path to make sure it's the desired game
+
+					hr = apObjArray[i]->Get(L"CommandLine", 0, &cn, NULL, NULL);
+					if (SUCCEEDED(hr))
+					{
+					if ((cn.vt == VT_NULL) || (cn.vt == VT_EMPTY) || (cn.vt == VT_ARRAY))
+					lstrcpyW(gameDetection::instance().processPath, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
+					else
+					lstrcpyW(gameDetection::instance().processPath, cn.bstrVal);
+					}
+
+					VariantClear(&cn);*/
+
+					if (GameDetection::instance().bProcessDetected)
+					{
+						hr = apObjArray[i]->Get(L"Handle", 0, &cn, NULL, NULL);
+						if (SUCCEEDED(hr))
+						{
+							if ((cn.vt == VT_NULL) || (cn.vt == VT_EMPTY) || (cn.vt == VT_ARRAY))
+							{
+								lstrcpyW(GameDetection::instance().processPID, ((cn.vt == VT_NULL) ? L"NULL" : L"EMPTY"));
+
+								GameDetection::instance().bProcessDetected = false;
+							}
+							else
+							{
+								lstrcpyW(GameDetection::instance().processPID, cn.bstrVal);
+
+								GameDetection::instance().processDetected();
+							}
+						}
+						else
+							GameDetection::instance().bProcessDetected = false;
+
+						VariantClear(&cn);
+					}
 				}
 			}
+
+			VariantClear(&vtProp);
 		}
 
-		VariantClear(&vtProp);
+		LeaveCriticalSection(&GameDetection::instance().criticalSection);
 	}
-
-	gameDetection::instance().processMutex.unlock();
 
 	return WBEM_S_NO_ERROR;
 }
@@ -133,13 +140,13 @@ HRESULT EventSink::SetStatus(LONG lFlags, HRESULT hResult, BSTR strParam, IWbemC
 	return WBEM_S_NO_ERROR;
 }
 
-gameDetection& gameDetection::instance()
+GameDetection& GameDetection::instance()
 {
-	static gameDetection gameDetection;
+	static GameDetection gameDetection;
 	return gameDetection;
 }
 
-bool gameDetection::wmiInitialize()
+bool GameDetection::wmiInitialize(bool initialize)
 {
 	HRESULT hres;
 
@@ -226,23 +233,47 @@ bool gameDetection::wmiInitialize()
 		return false;
 	}
 
+	if (initialize)
+		InitializeCriticalSection(&instance().criticalSection);
+
 	return bWMI = true;
 }
 
-gameDetection::gameDetection()
+void GameDetection::processDetected()
+{
+	hProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, (DWORD)_wtoi(processPID));
+	HANDLE hNewHandle;
+
+	if (!RegisterWaitForSingleObject(&hNewHandle, hProcHandle, waitOrTimerCallback, NULL, INFINITE, WT_EXECUTEONLYONCE))
+	{
+		displayError(L"Call to RegisterWaitForSingleObject failed.");
+		CloseHandle(hProcHandle);
+	}
+
+	wmiCleanup();
+}
+
+GameDetection::GameDetection()
 {
 	bWMI = false;
 	bProcessDetected = false;
 	bCIS = false;
 }
 
-gameDetection::~gameDetection()
+GameDetection::~GameDetection()
 {
+	destructing = true;
+
 	if (bWMI)
 		wmiCleanup();
+
+	while (!TryEnterCriticalSection(&GameDetection::instance().criticalSection))
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	LeaveCriticalSection(&GameDetection::instance().criticalSection);
+	DeleteCriticalSection(&GameDetection::instance().criticalSection);
 }
 
-void gameDetection::wmiCleanup()
+void GameDetection::wmiCleanup()
 {
 	pSvc->CancelAsyncCall(pStubSink);
 	pSvc->Release();
@@ -256,31 +287,28 @@ void gameDetection::wmiCleanup()
 	bWMI = false;
 }
 
-void gameDetection::processDetected()
+VOID CALLBACK waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired)
 {
-	hProcHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, (DWORD)_wtoi(processPID));
-	HANDLE hNewHandle;
+	displayError(GameDetection::instance().processName); // remove after testing
 
-	if (!RegisterWaitForSingleObject(&hNewHandle, hProcHandle, WaitOrTimerCallback, NULL, INFINITE, WT_EXECUTEONLYONCE))
+	while (!GameDetection::instance().destructing)
 	{
-		displayError(L"Call to RegisterWaitForSingleObject failed.");
-		CloseHandle(hProcHandle);
+		if (!TryEnterCriticalSection(&GameDetection::instance().criticalSection))
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		else
+			break;
 	}
 
-	wmiCleanup();
+	if (!GameDetection::instance().destructing)
+	{
+		GameDetection::instance().bProcessDetected = false;
+
+		LeaveCriticalSection(&GameDetection::instance().criticalSection);
+
+		GameDetection::instance().wmiInitialize();
+	}
+
+	CloseHandle(GameDetection::instance().hProcHandle);
 }
 
-VOID CALLBACK WaitOrTimerCallback(PVOID lpParameter, BOOLEAN TimerOrWaitFired)
-{
-	displayError(gameDetection::instance().processName); // remove after testing
-
-	gameDetection::instance().processMutex.lock();
-	gameDetection::instance().bProcessDetected = false;
-	gameDetection::instance().processMutex.unlock();
-
-	gameDetection::instance().wmiInitialize();
-
-	CloseHandle(gameDetection::instance().hProcHandle);
-}
-
-} // namespace sGL
+} // namespace sgl

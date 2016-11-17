@@ -11,28 +11,30 @@
 #define SOURCEGAMELOUNGE_API __declspec(dllimport)
 #endif // SOURCEGAMELOUNGE_EXPORTS
 
-namespace sGL {
+namespace sgl {
 
-class SOURCEGAMELOUNGE_API config
+class Config
 {
 public:
-	static config& instance();
+	static SOURCEGAMELOUNGE_API Config& instance();
+	SOURCEGAMELOUNGE_API std::vector<std::string>* getGames() const;
 	void load(const std::string &filename);
 	void save(const std::string &filename);
 
 	uint32_t configVersion;
 	uint32_t steam32ID;
-	std::vector<std::string>* games;
 	bool optOutSteamID;
 	bool runAtWindowsStartup;
 	bool minToTrayStartup;
 	bool autoExit;
 
 private:
-	config();
-	~config();
+	Config();
+	~Config();
+
+	std::vector<std::string>* pGames;
 };
 
-} // namesapce sGL
+} // namesapce sgl
 
 #endif // CONFIG_H

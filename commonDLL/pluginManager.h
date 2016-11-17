@@ -12,23 +12,23 @@
 
 namespace commondll {
 
-class pluginManager
+class PluginManager
 {
 public:
-	static COMMONDLL_API pluginManager& instance();
-	COMMONDLL_API void displayError(LPCWSTR pwszError);
-	COMMONDLL_API void displayErrorA(LPCSTR pszError);
-	COMMONDLL_API plugin* loadPlugin(const std::wstring& pluginName);
-	COMMONDLL_API void unloadPlugin(plugin*& plugin);
+	static COMMONDLL_API PluginManager& instance();
+	COMMONDLL_API void displayError(LPCWSTR pwszError) const;
+	COMMONDLL_API void displayErrorA(LPCSTR pszError) const;
+	COMMONDLL_API Plugin* loadPlugin(const std::wstring& pluginName);
+	COMMONDLL_API void unloadPlugin(Plugin*& plugin);
 
 private:
-	typedef std::map<std::wstring, plugin*> pluginMap;
+	typedef std::map<std::wstring, Plugin*> pluginMap;
 	typedef std::map<std::wstring, HMODULE> libraryMap;
 	typedef void (*fnDisplayError_t)(LPCWSTR pwszError);
 	typedef void (*fnDisplayErrorA_t)(LPCSTR pszError);
 
-	pluginManager();
-	~pluginManager();
+	PluginManager();
+	~PluginManager();
 
 	pluginMap m_plugins;
 	libraryMap m_libs;

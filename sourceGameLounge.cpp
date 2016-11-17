@@ -1,27 +1,59 @@
+#define WINVER 0x0501
+#define _WIN32_WINNT 0x0501
+#define _WIN32_WINDOWS 0x0501
+
 #include "sourceGameLounge.h"
 #include "commonDLL.h"
 #include <QtWidgets/QWhatsThis>
-#include <string>
 #include <chrono>
+#include <string>
 
-namespace sGL {
+namespace sgl {
 
-sourceGameLounge::sourceGameLounge(QWidget *parent) : QMainWindow(parent)
+SourceGameLounge::SourceGameLounge(QWidget *parent) : QMainWindow(parent)
 {
-	commondll::commonDLL::instance().addName("sourceGameLounge");
+	commondll::CommonDLL::instance().addName("SourceGameLounge");
 
 	ui.setupUi(this);
 
-	QObject::connect(ui.updateButton, SIGNAL(clicked()), this, SLOT(checkUpdate())); // change to button in ui.updatePanel
-	QObject::connect(ui.helpButton, SIGNAL(toggled(bool)), this, SLOT(changeCursor(bool)));
+	pStackedLayout = new QStackedLayout;
+	pStackedLayout->addWidget(ui.gamesPane);
+	pStackedLayout->addWidget(ui.gameSettingsPane);
+	pStackedLayout->addWidget(ui.programSettingsPane);
+	pStackedLayout->addWidget(ui.updatePane);
+	pStackedLayout->addWidget(ui.aboutPane);
 
-	helpModeFilter = new HelpModeFilter();
+	//function to addWidget and map/connect plugin Panes
+
+	pSignalMapper = new QSignalMapper;
+	connect(ui.gamesButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
+	pSignalMapper->setMapping(ui.gamesButton, ui.gamesPane);
+	connect(ui.gameSettingsButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
+	pSignalMapper->setMapping(ui.gameSettingsButton, ui.gameSettingsPane);
+	connect(ui.programSettingsButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
+	pSignalMapper->setMapping(ui.programSettingsButton, ui.programSettingsPane);
+	connect(ui.updateButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
+	pSignalMapper->setMapping(ui.updateButton, ui.updatePane);
+	connect(ui.aboutButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
+	pSignalMapper->setMapping(ui.aboutButton, ui.aboutPane);
+
+	QObject::connect(pSignalMapper, SIGNAL(mapped(QWidget*)), pStackedLayout, SLOT(setCurrentWidget(QWidget*)));
+	//QObject::connect(ui.updateButton, SIGNAL(clicked()), this, SLOT(checkUpdate())); // change to button in ui.updatePanel
+	QObject::connect(ui.helpButton, SIGNAL(toggled(bool)), this, SLOT(changeWhatsThisMode(bool)));
+
+	pHelpModeFilter = new HelpModeFilter();
 }
 
-sourceGameLounge::~sourceGameLounge()
+SourceGameLounge::~SourceGameLounge()
 {
-	delete helpModeFilter;
-	helpModeFilter = NULL;
+	delete pHelpModeFilter;
+	pHelpModeFilter = NULL;
+
+	delete pSignalMapper;
+	pSignalMapper = NULL;
+
+	delete pStackedLayout;
+	pStackedLayout = NULL;
 
 	updateCheckCommunicator = true;
 
@@ -31,36 +63,36 @@ sourceGameLounge::~sourceGameLounge()
 		cycleSlaveThread.join();
 }
 
-void sourceGameLounge::checkUpdate()
+void SourceGameLounge::checkUpdate()
 {
 	if (cycleMasterThread.joinable())
 		cycleMasterThread.join();
 
 	setChecked(false);
 
-	std::thread swapThread(&sourceGameLounge::cycleSlave, this);
+	std::thread swapThread(&SourceGameLounge::cycleSlave, this);
 	std::swap(swapThread, cycleSlaveThread);
-	swapThread = std::thread(&sourceGameLounge::cycleMaster, this);
+	swapThread = std::thread(&SourceGameLounge::cycleMaster, this);
 	std::swap(swapThread, cycleMasterThread);
 }
 
-void sourceGameLounge::changeCursor(bool checked)
+void SourceGameLounge::changeWhatsThisMode(bool checked) const
 {
 	if (checked)
 	{
 		QWhatsThis::enterWhatsThisMode();
 
-		(*g_a).installEventFilter(helpModeFilter);
+		(*g_pApplication).installEventFilter(pHelpModeFilter);
 	}
 	else
 	{
-		(*g_a).removeEventFilter(helpModeFilter);
+		(*g_pApplication).removeEventFilter(pHelpModeFilter);
 
 		QWhatsThis::leaveWhatsThisMode();
 	}
 }
 
-void sourceGameLounge::setChecked(bool bChecked)
+void SourceGameLounge::setChecked(bool bChecked)
 {
 	std::string checkedString;
 
@@ -86,7 +118,7 @@ void sourceGameLounge::setChecked(bool bChecked)
 		"}"));
 }
 
-void sourceGameLounge::cycleMaster()
+void SourceGameLounge::cycleMaster()
 {
 	// Check for update here
 
@@ -110,7 +142,7 @@ void sourceGameLounge::cycleMaster()
 	ui.updateButton->repaint();
 }
 
-void sourceGameLounge::cycleSlave()
+void SourceGameLounge::cycleSlave()
 {
 	while (true)
 	{
@@ -144,23 +176,25 @@ void sourceGameLounge::cycleSlave()
 	updateCheckCommunicator = false;
 }
 
-bool HelpModeFilter::eventFilter(QObject *obj, QEvent *event)
+bool HelpModeFilter::eventFilter(QObject *object, QEvent *event)
 {
-	if (obj == (*g_w).ui.helpButton && event->type() == QEvent::MouseButtonPress)
+	if (object == (*g_pWindow).ui.helpButton && event->type() == QEvent::MouseButtonPress)
 	{
-		(*g_w).ui.helpButton->toggle();
+		(*g_pWindow).ui.helpButton->toggle();
 		return true;
+	}
+	else if (event->type() == QEvent::MouseButtonPress)
+	{
+		QEvent qEvent = QEvent(QEvent::Leave);
+		QApplication::sendEvent(object, &qEvent);
 	}
 	else if (event->type() == QEvent::LeaveWhatsThisMode)
-	{
-		(*g_w).ui.helpButton->toggle();
-		return true;
-	}
+		(*g_pWindow).ui.helpButton->toggle();
 
-	return QObject::eventFilter(obj, event);
+	return QObject::eventFilter(object, event);
 }
 
-} // namespace sGL
+} // namespace sgl
 
 extern "C" SOURCEGAMELOUNGE_API void displayError(LPCWSTR pwszError)
 {

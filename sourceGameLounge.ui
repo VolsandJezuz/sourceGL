@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>sourceGameLoungeClass</class>
- <widget class="QMainWindow" name="sourceGameLoungeClass">
+ <class>SourceGameLoungeClass</class>
+ <widget class="QMainWindow" name="SourceGameLoungeClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -568,6 +568,19 @@ QPushButton:checked {
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <widget class="QLabel" name="gamesLabel">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>180</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GAMES</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QScrollArea" name="gameSettingsPane">
@@ -642,6 +655,19 @@ QPushButton:checked {
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <widget class="QLabel" name="gameSettingsLabel">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>165</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GAME SETTINGS</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QScrollArea" name="programSettingsPane">
@@ -716,6 +742,19 @@ QPushButton:checked {
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <widget class="QLabel" name="programSettingsLabel">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>195</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>PROGRAM SETTINGS</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QScrollArea" name="aboutPane">
@@ -793,6 +832,19 @@ QPushButton:checked {
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <widget class="QLabel" name="aboutLabel">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>150</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ABOUT</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="programSettingsButton">
@@ -920,6 +972,19 @@ QPushButton:checked {
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
+     <widget class="QLabel" name="updateLabel">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>210</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>UPDATE</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="gameSettingsButton">
@@ -1057,6 +1122,15 @@ QPushButton:checked {
     </property>
     <property name="focusPolicy">
      <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="whatsThis">
+     <string>Display information about
+sourceGameLounge, its
+development, its creator,
+and how to give thanks or
+donate.
+
+</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
@@ -1245,25 +1319,9 @@ QPushButton:hover {
  </resources>
  <connections>
   <connection>
-   <sender>programSettingsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>programSettingsPane</receiver>
-   <slot>raise()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>462</x>
-     <y>60</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>310</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>exitButton</sender>
    <signal>clicked()</signal>
-   <receiver>sourceGameLoungeClass</receiver>
+   <receiver>SourceGameLoungeClass</receiver>
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1273,70 +1331,6 @@ QPushButton:hover {
     <hint type="destinationlabel">
      <x>435</x>
      <y>271</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gameSettingsButton</sender>
-   <signal>clicked()</signal>
-   <receiver>gameSettingsPane</receiver>
-   <slot>raise()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>371</x>
-     <y>38</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>310</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>updateButton</sender>
-   <signal>clicked()</signal>
-   <receiver>updatePane</receiver>
-   <slot>raise()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>553</x>
-     <y>38</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>310</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>aboutButton</sender>
-   <signal>clicked()</signal>
-   <receiver>aboutPane</receiver>
-   <slot>raise()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>644</x>
-     <y>38</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>310</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>gamesButton</sender>
-   <signal>clicked()</signal>
-   <receiver>gamesPane</receiver>
-   <slot>raise()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>280</x>
-     <y>38</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>310</y>
     </hint>
    </hints>
   </connection>

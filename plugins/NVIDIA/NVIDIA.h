@@ -18,11 +18,11 @@
 
 namespace nvidia {
 
-class PLUGIN_NVIDIA_API pluginNVIDIA : public commondll::plugin
+class PLUGIN_NVIDIA_API PluginNVIDIA : public commondll::Plugin
 {
 public:
-	pluginNVIDIA();
-	~pluginNVIDIA();
+	PluginNVIDIA();
+	~PluginNVIDIA() = default;
 };
 
 class NVIDIA : public QDialog
@@ -39,7 +39,7 @@ private:
 
 } // namespace nvidia
 
-extern "C" PLUGIN_NVIDIA_API commondll::plugin* createPlugin();
+extern "C" PLUGIN_NVIDIA_API commondll::Plugin* createPlugin();
 extern "C" PLUGIN_NVIDIA_API void destroyPlugin();
 
 #endif // PLUGINS_NVIDIA_NVIDIA_H

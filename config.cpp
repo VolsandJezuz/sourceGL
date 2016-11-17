@@ -5,20 +5,25 @@
 #include <boost/property_tree/xml_parser.hpp>
 #include <filesystem>
 
-namespace sGL {
+namespace sgl {
 
-SOURCEGAMELOUNGE_API config& config::instance()
+SOURCEGAMELOUNGE_API Config& Config::instance()
 {
-	static config config;
+	static Config config;
 	return config;
 }
 
-void config::load(const std::string &filename)
+SOURCEGAMELOUNGE_API std::vector<std::string>* Config::getGames() const
+{
+	return pGames;
+}
+
+void Config::load(const std::string &filename)
 {
 	boost::property_tree::ptree pt;
 
-	std::tr2::sys::path myfile(filename);
-	if (std::tr2::sys::exists(myfile))
+	std::tr2::sys::path myFile(filename);
+	if (std::tr2::sys::exists(myFile))
 	{
 		read_xml(filename, pt);
 
@@ -32,7 +37,7 @@ void config::load(const std::string &filename)
 		steam32ID = pt.get<uint32_t>("sGL.Steam32ID");
 
 		BOOST_FOREACH(boost::property_tree::ptree::value_type &v, pt.get_child("sGL.Games"))
-			(*games).push_back(v.second.data());
+			(*pGames).push_back(v.second.data());
 
 		optOutSteamID = pt.get<bool>("sGL.ProgramSettings.OptOutSteamID");
 		runAtWindowsStartup = pt.get<bool>("sGL.ProgramSettings.RunAtWindowsStartup");
@@ -40,17 +45,17 @@ void config::load(const std::string &filename)
 		autoExit = pt.get<bool>("sGL.ProgramSettings.AutoExitAfterRunningGame");
 	}
 	else
-		(*games).push_back("Hotkey-on-demand");
+		(*pGames).push_back("Hotkey-on-demand");
 }
 
-void config::save(const std::string &filename)
+void Config::save(const std::string &filename)
 {
 	boost::property_tree::ptree pt;
 
 	pt.put("sGL.version", configVersion);
 	pt.put("sGL.Steam32ID", steam32ID);
 
-	BOOST_FOREACH(const std::string &game, *games)
+	BOOST_FOREACH(const std::string &game, *pGames)
 		pt.add("sGL.Games.Game", game);
 
 	pt.put("sGL.ProgramSettings.OptOutSteamID", optOutSteamID);
@@ -61,11 +66,11 @@ void config::save(const std::string &filename)
 	write_xml(filename, pt);
 }
 
-config::config()
+Config::Config()
 {
 	configVersion = COMMONDLL_API_VER;
 
-	games = new std::vector<std::string>();
+	pGames = new std::vector<std::string>();
 
 	optOutSteamID = false;
 	runAtWindowsStartup = false;
@@ -74,10 +79,10 @@ config::config()
 	// functions to get steam32ID and other default values
 }
 
-config::~config()
+Config::~Config()
 {
-	delete games;
-	games = NULL;
+	delete pGames;
+	pGames = NULL;
 }
 
-} // namespace sGL
+} // namespace sgl

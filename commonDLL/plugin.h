@@ -6,16 +6,16 @@
 
 namespace commondll {
 
-class plugin
+class Plugin
 {
-	friend class pluginManager;
+	friend class PluginManager;
 
 public:
 	COMMONDLL_API std::wstring getName() const;
 
 protected:
-	COMMONDLL_API plugin();
-	COMMONDLL_API virtual ~plugin() = default;
+	COMMONDLL_API Plugin();
+	COMMONDLL_API virtual ~Plugin() = default;
 	COMMONDLL_API void setName(const std::wstring& name);
 
 private:

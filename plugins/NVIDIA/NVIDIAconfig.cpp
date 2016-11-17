@@ -10,8 +10,8 @@ namespace nvidia {
 
 NVIDIAconfig& NVIDIAconfig::instance()
 {
-	static NVIDIAconfig NVIDIAconfig;
-	return NVIDIAconfig;
+	static NVIDIAconfig nvidiaConfig;
+	return nvidiaConfig;
 }
 
 void NVIDIAconfig::load(const std::string &filename)
@@ -24,14 +24,14 @@ void NVIDIAconfig::load(const std::string &filename)
 		read_xml(filename, pt);
 
 		uint32_t currentNVIDIAconfigVersion = pt.get<uint32_t>("NVIDIA.version");
-		if (currentNVIDIAconfigVersion != NVIDIAconfigVersion)
+		if (currentNVIDIAconfigVersion != nvidiaConfigVersion)
 		{
 			// make changes for old PLUGIN_NVIDIA_VER
-			NVIDIAconfigVersion = currentNVIDIAconfigVersion;
+			nvidiaConfigVersion = currentNVIDIAconfigVersion;
 		}
 	}
 
-	BOOST_FOREACH(const std::string &game, *sGL::config::instance().games)
+	BOOST_FOREACH(const std::string &game, *sgl::Config::instance().getGames())
 	{
 		std::vector<std::pair<std::string, boost::variant<std::string, int, bool>>> settings =
 		{
@@ -48,7 +48,7 @@ void NVIDIAconfig::save(const std::string &filename)
 {
 	boost::property_tree::ptree pt;
 
-	pt.put("NVIDIA.version", NVIDIAconfigVersion);
+	pt.put("NVIDIA.version", nvidiaConfigVersion);
 
 	BOOST_FOREACH(gameSettings_t::value_type &game, gameSettings)
 	{
@@ -61,7 +61,7 @@ void NVIDIAconfig::save(const std::string &filename)
 
 NVIDIAconfig::NVIDIAconfig()
 {
-	NVIDIAconfigVersion = PLUGIN_NVIDIA_VER;
+	nvidiaConfigVersion = PLUGIN_NVIDIA_VER;
 	// functions to get default values
 }
 

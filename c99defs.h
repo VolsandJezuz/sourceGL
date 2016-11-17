@@ -14,8 +14,8 @@
 * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
-#ifndef _C99DEFS_H_
-#define _C99DEFS_H_
+#ifndef C99DEFS_H
+#define C99DEFS_H
 
 /* Contains hacks for getting some C99 stuff working in VC, things like
 * bool, inline, stdint */
@@ -64,7 +64,7 @@
 typedef long long off_t;
 #else
 typedef long off_t;
-#endif
+#endif // _FILE_OFFSET_BITS == 64
 typedef int64_t off64_t;
 #endif // __off_t_defined
 
@@ -81,4 +81,4 @@ typedef int64_t off64_t;
 
 #endif // _MSC_VER && _MSC_VER < 0x0708
 
-#endif // _C99DEFS_H_
+#endif // C99DEFS_H

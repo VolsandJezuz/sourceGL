@@ -2,17 +2,17 @@
 
 namespace commondll {
 
-COMMONDLL_API plugin::plugin()
-{
-	commonDLL::instance().addName("Plugin");
-}
-
-COMMONDLL_API std::wstring plugin::getName() const
+COMMONDLL_API std::wstring Plugin::getName() const
 {
 	return m_name;
 }
 
-COMMONDLL_API void plugin::setName(const std::wstring& name)
+COMMONDLL_API Plugin::Plugin()
+{
+	CommonDLL::instance().addName("Plugin");
+}
+
+COMMONDLL_API void Plugin::setName(const std::wstring& name)
 {
 	m_name = name;
 }

@@ -3,12 +3,21 @@
 
 namespace nvidia {
 
-bool NvAPI::Initialize()
+NvAPI::~NvAPI()
+{
+	if (hDLL)
+	{
+		(*NvAPI_Unload)();
+		FreeLibrary(hDLL);
+	}
+}
+
+bool NvAPI::initialize()
 {
 	hDLL = LoadLibraryW(TEXT("nvapi.dll"));
 	if (hDLL == NULL)
 	{
-		commondll::pluginManager::instance().displayError(L"Load NvAPI DLL failed.");
+		commondll::PluginManager::instance().displayError(L"Load NvAPI DLL failed.");
 
 		return false;
 	}
@@ -28,7 +37,7 @@ bool NvAPI::Initialize()
 	_NvAPI_Status status = (_NvAPI_Status)(*NvAPI_Initialize)();
 	if (status != NVAPI_OK)
 	{
-		commondll::pluginManager::instance().displayError(L"NvAPI initialization failed.");
+		commondll::PluginManager::instance().displayError(L"NvAPI initialization failed.");
 
 		return false;
 	}
@@ -36,93 +45,94 @@ bool NvAPI::Initialize()
 	return true;
 }
 
-int NvAPI::EnumNvidiaDisplayHandle(int thisEnum, int* pNvDispHandle)
+int NvAPI::enumNvidiaDisplayHandle(int thisEnum, int* pNvDispHandle)
 {
-	int DispCount = 0;
+	int dispCount = 0;
 
 	int enumNvDispHandle;
 
 	_NvAPI_Status status = NVAPI_OK;
 	while (status != NVAPI_END_ENUMERATION)
 	{
-		status = (_NvAPI_Status)(*NvAPI_EnumNvidiaDisplayHandle)(DispCount, &enumNvDispHandle);
+		status = (_NvAPI_Status)(*NvAPI_EnumNvidiaDisplayHandle)(dispCount, &enumNvDispHandle);
 		if (status == NVAPI_OK)
 		{
-			if (DispCount == thisEnum)
+			if (dispCount == thisEnum)
 				*pNvDispHandle = enumNvDispHandle;
 
-			++DispCount;
+			++dispCount;
 		}
 		else if (status != NVAPI_END_ENUMERATION)
-			commondll::pluginManager::instance().displayError(L"NvAPI display handle enumeration failed.");
+			commondll::PluginManager::instance().displayError(L"NvAPI display handle enumeration failed.");
 	}
 
-	return DispCount;
+	return dispCount;
 }
 
-char* NvAPI::GetAssociatedNvidiaDisplayName(int nDisp, char* szDispName)
+char* NvAPI::getAssociatedNvidiaDisplayName(int nDisp, char* szDispName)
 {
-	int NvDispHandle;
-	EnumNvidiaDisplayHandle(nDisp, &NvDispHandle);
+	int nvDispHandle;
+	enumNvidiaDisplayHandle(nDisp, &nvDispHandle);
 
-	(*NvAPI_GetAssociatedNvidiaDisplayName)(NvDispHandle, szDispName);
+	(*NvAPI_GetAssociatedNvidiaDisplayName)(nvDispHandle, szDispName);
 
 	return szDispName;
 }
 
-int NvAPI::EnumPhysicalGPUs(int** nvGPUHandle)
+int NvAPI::enumPhysicalGPUs(int** nvGPUhandle)
 {
-	int GpuCount;
+	int gpuCount;
 
-	_NvAPI_Status status = (_NvAPI_Status)(*NvAPI_EnumPhysicalGPUs)(nvGPUHandle, &GpuCount);
+	_NvAPI_Status status = (_NvAPI_Status)(*NvAPI_EnumPhysicalGPUs)(nvGPUhandle, &gpuCount);
 	if (status != NVAPI_OK)
-		commondll::pluginManager::instance().displayError(L"NvAPI physical GPU enumeration failed.");
+		commondll::PluginManager::instance().displayError(L"NvAPI physical GPU enumeration failed.");
 
-	return GpuCount;
+	return gpuCount;
 }
 
-NvAPI::NV_DISPLAY_DVC_INFO_EX NvAPI::GetDVCInfoEx(int nDisp)
+NV_DISPLAY_DVC_INFO_EX NvAPI::getDvcInfoEx(int nDisp)
 {
 	NV_DISPLAY_DVC_INFO_EX info;
 
-	int NvDispHandle;
-	EnumNvidiaDisplayHandle(nDisp, &NvDispHandle);
+	int nvDispHandle;
+	enumNvidiaDisplayHandle(nDisp, &nvDispHandle);
 
 	info.version = sizeof(NV_DISPLAY_DVC_INFO_EX) | 0x10000;
-	(*NvAPI_GetDVCInfoEx)(NvDispHandle, 0, &info);
+	(*NvAPI_GetDVCInfoEx)(nvDispHandle, 0, &info);
 
 	return info;
 }
 
-NvAPI::NV_GPU_COOLER_SETTINGS NvAPI::GPU_GetCoolerSettings(int nGPU)
+NV_GPU_COOLER_SETTINGS NvAPI::gpu_GetCoolerSettings(int nGPU)
 {
 	NV_GPU_COOLER_SETTINGS settings;
 
-	int* nvGPUHandle[NVAPI_MAX_PHYSICAL_GPUS];
-	EnumPhysicalGPUs(nvGPUHandle);
+	int* nvGPUhandle[NVAPI_MAX_PHYSICAL_GPUS];
+	
+	enumPhysicalGPUs(nvGPUhandle);
 
 	settings.version = sizeof(NV_GPU_COOLER_SETTINGS) | 0x30000;
-	(*NvAPI_GPU_GetCoolerSettings)(nvGPUHandle[nGPU], 7, &settings);
+	(*NvAPI_GPU_GetCoolerSettings)(nvGPUhandle[nGPU], 7, &settings);
 
 	return settings;
 }
 
-char* NvAPI::GPU_GetFullName(int nGPU, char* szName)
+char* NvAPI::gpu_GetFullName(int nGPU, char* szName)
 {
 	int* nvGPUHandle[NVAPI_MAX_PHYSICAL_GPUS];
-	EnumPhysicalGPUs(nvGPUHandle);
+	enumPhysicalGPUs(nvGPUHandle);
 
 	(*NvAPI_GPU_GetFullName)(nvGPUHandle[nGPU], szName);
 
 	return szName;
 }
 
-bool NvAPI::SetDVCInfoEx(int nDisp, int level)
+bool NvAPI::setDvcInfoEx(int nDisp, int level)
 {
 	int NvDispHandle;
-	EnumNvidiaDisplayHandle(nDisp, &NvDispHandle);
+	enumNvidiaDisplayHandle(nDisp, &NvDispHandle);
 
-	NV_DISPLAY_DVC_INFO_EX oldInfo = GetDVCInfoEx(nDisp);
+	NV_DISPLAY_DVC_INFO_EX oldInfo = getDvcInfoEx(nDisp);
 
 	NV_DISPLAY_DVC_INFO_EX info;
 	info.version = oldInfo.version;
@@ -138,36 +148,30 @@ bool NvAPI::SetDVCInfoEx(int nDisp, int level)
 	return true;
 }
 
-bool NvAPI::SetCoolerLevels(int nGPU, int nCooler, int newLevel)
+bool NvAPI::gpu_SetCoolerLevels(int nGPU, int nCooler, int newLevel)
 {
 	int* nvGPUHandle[NVAPI_MAX_PHYSICAL_GPUS];
-	EnumPhysicalGPUs(nvGPUHandle);
+	enumPhysicalGPUs(nvGPUHandle);
 
-	NV_GPU_COOLER_SETTINGS settings = GPU_GetCoolerSettings(nGPU);
+	NV_GPU_COOLER_SETTINGS gpuCoolerSettings = gpu_GetCoolerSettings(nGPU);
 
-	NV_GPU_COOLER_LEVELS levels;
-	levels.version = sizeof(NV_GPU_COOLER_LEVELS) | 0x10000;
+	NV_GPU_COOLER_LEVELS gpuCoolerLevels;
+	gpuCoolerLevels.version = sizeof(NV_GPU_COOLER_LEVELS) | 0x10000;
 
-	for (unsigned int x = 0; x < settings.count; x++)
+	for (unsigned int x = 0; x < gpuCoolerSettings.count; ++x)
 	{
-		levels.Level[x].level = settings.Coolers[x].currentLevel;
-		levels.Level[x].policy = settings.Coolers[x].currentPolicy;
+		gpuCoolerLevels.levels[x].level = gpuCoolerSettings.coolers[x].currentLevel;
+		gpuCoolerLevels.levels[x].policy = gpuCoolerSettings.coolers[x].currentPolicy;
 	}
 
-	levels.Level[nCooler].level = newLevel;
-	levels.Level[nCooler].policy = 1;
+	gpuCoolerLevels.levels[nCooler].level = newLevel;
+	gpuCoolerLevels.levels[nCooler].policy = 1;
 
-	_NvAPI_Status status = (_NvAPI_Status)(*NvAPI_GPU_SetCoolerLevels)(nvGPUHandle[nGPU], 7, &levels);
+	_NvAPI_Status status = (_NvAPI_Status)(*NvAPI_GPU_SetCoolerLevels)(nvGPUHandle[nGPU], 7, &gpuCoolerLevels);
 	if (status != NVAPI_OK)
 		return false;
 
 	return true;
-}
-
-void NvAPI::Stop() const
-{
-	(*NvAPI_Unload)();
-	FreeLibrary(hDLL);
 }
 
 } // namespace nvidia
