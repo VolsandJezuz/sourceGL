@@ -82,12 +82,11 @@
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>set commondll=..\program-dir\commonDLL.dll
-if exist %commondll% del /f /q ..\program-dir\commonDLL.dll
-copy /y /b $(SolutionDir)$(Configuration)\commonDLL.dll ..\program-dir\commonDLL.dll</Command>
+if exist %commondll% del /f /q %commondll%
+copy /y /b $(SolutionDir)$(Configuration)\commonDLL.dll %commondll%</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>..\program-dir\commonDLL.dll;%(Outputs)</Outputs>
-      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
     <ProjectReference />
     <ProjectReference>

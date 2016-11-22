@@ -88,13 +88,14 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
     <CustomBuildStep>
-      <Command>set nvidiaplugin=..\..\program-dir\plugins\NVIDIA.dll
-if exist %nvidiaplugin% del /f /q ..\..\program-dir\plugins\NVIDIA.dll
-copy /y /b $(SolutionDir)$(Configuration)\NVIDIA.dll ..\..\program-dir\plugins\NVIDIA.dll
+      <Command>del /f /q .\NVIDIA.vcxproj.user
+(echo ^&lt;?xml version="1.0" encoding="utf-8"?^&gt; &amp;&amp; echo ^&lt;Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"^&gt; &amp;&amp; echo   ^&lt;PropertyGroup Condition="'$(Configuration)^|$(Platform)'=='Release^|Win32'"^&gt; &amp;&amp; echo     ^&lt;QTDIR^&gt;C:^\Qt^\Qt5.7.0^\5.7^\msvc2013^&lt;/QTDIR^&gt; &amp;&amp; echo     ^&lt;BOOSTDIR^&gt;C:^\Program Files^\boost^\boost_1_62_0^&lt;/BOOSTDIR^&gt; &amp;&amp; echo     ^&lt;LocalDebuggerEnvironment^&gt;^&lt;/LocalDebuggerEnvironment^&gt; &amp;&amp; echo     ^&lt;DebuggerFlavor^&gt;WindowsLocalDebugger^&lt;/DebuggerFlavor^&gt; &amp;&amp; echo   ^&lt;/PropertyGroup^&gt; &amp;&amp; echo ^&lt;/Project^&gt;) &gt; .\NVIDIA.vcxproj.user
+set nvidiaplugin=..\..\program-dir\plugins\NVIDIA.dll
+if exist %nvidiaplugin% del /f /q %nvidiaplugin%
+copy /y /b $(SolutionDir)$(Configuration)\NVIDIA.dll %nvidiaplugin%
 set nvidiaconfig=..\..\program-dir\configs\plugins\NVIDIA_config.xml
-if exist %nvidiaconfig% del /f /q %config%</Command>
+if exist %nvidiaconfig% del /f /q %nvidiaconfig%</Command>
       <Outputs>..\..\program-dir\configs\plugins\NVIDIA_config.xml;..\..\program-dir\plugins\NVIDIA.dll</Outputs>
-      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>

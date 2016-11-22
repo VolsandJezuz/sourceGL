@@ -4,18 +4,20 @@
 
   Along with the renaming, sourceGameLounge will now be open-source. It will
   continue to be free. It has been completely rewritten from the ground up in a
-  completely different code. So it is currently not planned to have it as an
-  update from sourceGL, meaning that it will not carry over sourceGL's settings.
+  different programming language, so it will likely not be released as an
+  update to sourceGL--meaning that it will not carry over sourceGL's settings.
   Other design plans for the new code are to make the releases portable and to
   utilize a plugin design to handle most of the program functionality, except
-  the most basic core functions. This means that unused and unwanted functions
+  the most basic core functions.
+
+  The plugin system design means that unused or unwanted dynamic-link libraries
   can be not loaded or deleted to save drive space and reduce the memory
-  footprint. And third-party plugins can be developed to make sourceGameLounge
-  do practically anything you want. There will be several officially maintained
+  footprint. Third-party plugins can be developed to make sourceGameLounge do
+  practically anything you'd want. There will be several officially maintained
   plugins covering the most popular features that will be distributed with the
   main program.
-  
-  
+
+
 ********************************************************************************
  Versioning
 ********************************************************************************
@@ -27,27 +29,30 @@
   Versioning has been reset and is not congruent with sourceGL versions.
   
   Current versions of the main program and the plugins that have been at least
-  partially implemented:
-    - sourceGameLounge 0.2.1
-    - NVIDIA plugin 0.1.0
-	
-		
+  partially implemented thus far:
+    - sourceGameLounge 0.2.5
+    - NVIDIA plugin 0.1.2
+    - Rinput-Library submodule 1.45.0
+
+
 ********************************************************************************
  Repository structure
 ********************************************************************************
 
-  - Main program modules in root directory
-  - Plugin system is a separate DLL project in commonDLL folder
+  - The statically loaded program modules are in the root directory
+  - The plugin system is a separate DLL project in the commonDLL folder
   - Plugins are separate DLL projects, each in their own folder within the
     plugins folder
+  - My fork from about/Rinput-Library has been included as a submodule, as the
+    RInputInjector plugin will dynamically load the submodules's runtime file
   - A 'template' plugin project is in the plugin folder, to serve as a blank
     guide for demonstrating the requirements for coding a third-party plugin
   - Files to generate/modify the GUI are provided, including the images folder
   - The project files will automically copy the build's runtime files into the
     program-dir folder, which includes all the other files to make the contents
     of that folder equivalent to a portable release.
-		
-	
+
+
 ********************************************************************************
  Utilized build tools
 ********************************************************************************
@@ -60,12 +65,12 @@
       - http://download.qt.io/official_releases/vsaddin/qt-vs-addin-1.2.5.exe
   - Boost Version 1.62.0
       - http://boost.org/users/history/version_1_62_0.html
-	  
-	  
+
+
 ********************************************************************************
  Build notes
 ********************************************************************************
-	  
+
   - BOOSTDIR needs to be defined as a macro in VS 2013 in order for the project
     additional include/library directories to work as-is, for example with the
     default install folder: $(BOOSTDIR) = C:\Program Files\boost\boost_1_62_0
@@ -75,8 +80,8 @@
   - Currently, everything is half-implemented, at best. Commenting is also very
     poor right now and there is a lot of placeholder code that I've just been 
     using to test basic functionality.
-  
-  
+
+
 ********************************************************************************
  ...more to come, this README is a very basic placeholder for now.
 ********************************************************************************

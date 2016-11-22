@@ -1,4 +1,5 @@
 #include "config.h"
+#include "setup.h"
 #include "commonDLL.h"
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>

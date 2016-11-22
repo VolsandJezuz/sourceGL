@@ -1,8 +1,6 @@
 **/GeneratedFiles/**
 **/Release/**
 
-*.vcxproj.user
-
 /program-dir/commonDLL.dll
 /program-dir/configs/**
 /program-dir/plugins/**

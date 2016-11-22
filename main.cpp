@@ -1,5 +1,7 @@
-#include "sourceGameLounge.h"
+#include "config.h"
 #include "gameDetection.h"
+#include "setup.h"
+#include "sourceGameLounge.h"
 #include "pluginManager.h"
 #include <vector>
 
@@ -46,6 +48,8 @@ int main(int argc, char *argv[])
 				plugins.push_back(plugin);
 		} while (FindNextFile(fileHandle, &fileData));
 	}
+
+	sgl::Setup::instance().initialSetup();
 
 	if (!sgl::GameDetection::instance().wmiInitialize(true))
 		return true;

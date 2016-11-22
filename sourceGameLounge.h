@@ -4,8 +4,8 @@
 #define STRICT
 #define WIN32_LEAN_AND_MEAN
 
-#include "ui_sourceGameLounge.h"
 #include "config.h"
+#include "ui_sourceGameLounge.h"
 #include <QtCore/QSignalMapper>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QMainWindow>

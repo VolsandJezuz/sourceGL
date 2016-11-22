@@ -269,6 +269,7 @@ GameDetection::~GameDetection()
 
 	while (!TryEnterCriticalSection(&GameDetection::instance().criticalSection))
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
 	LeaveCriticalSection(&GameDetection::instance().criticalSection);
 	DeleteCriticalSection(&GameDetection::instance().criticalSection);
 }

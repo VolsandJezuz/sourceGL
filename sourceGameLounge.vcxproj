@@ -87,12 +87,13 @@
     </ProjectReference>
     <CustomBuildStep>
       <Outputs>.\program-dir\configs\config.xml;.\program-dir\sourceGameLounge.exe</Outputs>
-      <Command>set sglexe=.\program-dir\sourceGameLounge.exe
-if exist %sglexe% del /f /q .\program-dir\sourceGameLounge.exe
-copy /y /b $(SolutionDir)$(Configuration)\sourceGameLounge.exe .\program-dir\sourceGameLounge.exe
+      <Command>del /f /q .\sourceGameLounge.vcxproj.user
+(echo ^&lt;?xml version="1.0" encoding="utf-8"?^&gt; &amp;&amp; echo ^&lt;Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"^&gt; &amp;&amp; echo   ^&lt;PropertyGroup Condition="'$(Configuration)^|$(Platform)'=='Release^|Win32'"^&gt; &amp;&amp; echo     ^&lt;QTDIR^&gt;C:^\Qt^\Qt5.7.0^\5.7^\msvc2013^&lt;/QTDIR^&gt; &amp;&amp; echo     ^&lt;BOOSTDIR^&gt;C:^\Program Files^\boost^\boost_1_62_0^&lt;/BOOSTDIR^&gt; &amp;&amp; echo     ^&lt;LocalDebuggerEnvironment^&gt;^&lt;/LocalDebuggerEnvironment^&gt; &amp;&amp; echo     ^&lt;DebuggerFlavor^&gt;WindowsLocalDebugger^&lt;/DebuggerFlavor^&gt; &amp;&amp; echo   ^&lt;/PropertyGroup^&gt; &amp;&amp; echo ^&lt;/Project^&gt;) &gt; .\sourceGameLounge.vcxproj.user
+set sglexe=.\program-dir\sourceGameLounge.exe
+if exist %sglexe% del /f /q %sglexe%
+copy /y /b $(SolutionDir)$(Configuration)\sourceGameLounge.exe %sglexe%
 set config=.\program-dir\configs\config.xml
 if exist %config% del /f /q %config%</Command>
-      <Message>Moving runtime file to program-dir</Message>
     </CustomBuildStep>
     <CustomBuild>
       <Message />
@@ -107,6 +108,7 @@ if exist %config% del /f /q %config%</Command>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_sourceGameLounge.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="setup.cpp" />
     <ClCompile Include="sourceGameLounge.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +132,7 @@ if exist %config% del /f /q %config%</Command>
     <ClInclude Include="config.h" />
     <ClInclude Include="gameDetection.h" />
     <ClInclude Include="GeneratedFiles\ui_sourceGameLounge.h" />
+    <ClInclude Include="setup.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="sourceGameLounge.qrc">
