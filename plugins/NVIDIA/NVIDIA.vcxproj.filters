@@ -39,9 +39,6 @@
     <ClCompile Include="GeneratedFiles\qrc_NVIDIA.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="NvAPI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NVIDIAconfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,9 +57,6 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_NVIDIA.h">
       <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NvAPI.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NVIDIAconfig.h">
       <Filter>Header Files</Filter>

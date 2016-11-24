@@ -10,13 +10,16 @@
 
 namespace sgl {
 
-SourceGameLounge::SourceGameLounge(QWidget *parent) : QMainWindow(parent)
+SourceGameLounge::SourceGameLounge(QApplication* pApplication, QWidget* parent) : QMainWindow(parent)
 {
 	commondll::CommonDLL::instance().addName("SourceGameLounge");
+
+	this->pApplication = pApplication;
 
 	ui.setupUi(this);
 
 	pStackedLayout = new QStackedLayout;
+
 	pStackedLayout->addWidget(ui.gamesPane);
 	pStackedLayout->addWidget(ui.gameSettingsPane);
 	pStackedLayout->addWidget(ui.programSettingsPane);
@@ -26,19 +29,24 @@ SourceGameLounge::SourceGameLounge(QWidget *parent) : QMainWindow(parent)
 	//function to addWidget and map/connect plugin Panes
 
 	pSignalMapper = new QSignalMapper;
+
 	connect(ui.gamesButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
 	pSignalMapper->setMapping(ui.gamesButton, ui.gamesPane);
+
 	connect(ui.gameSettingsButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
 	pSignalMapper->setMapping(ui.gameSettingsButton, ui.gameSettingsPane);
+
 	connect(ui.programSettingsButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
 	pSignalMapper->setMapping(ui.programSettingsButton, ui.programSettingsPane);
+
 	connect(ui.updateButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
 	pSignalMapper->setMapping(ui.updateButton, ui.updatePane);
+
 	connect(ui.aboutButton, SIGNAL(clicked()), pSignalMapper, SLOT(map()));
 	pSignalMapper->setMapping(ui.aboutButton, ui.aboutPane);
 
 	QObject::connect(pSignalMapper, SIGNAL(mapped(QWidget*)), pStackedLayout, SLOT(setCurrentWidget(QWidget*)));
-	//QObject::connect(ui.updateButton, SIGNAL(clicked()), this, SLOT(checkUpdate())); // change to button in ui.updatePanel
+	QObject::connect(ui.updateButton, SIGNAL(clicked()), this, SLOT(checkUpdate())); // change to button in ui.updatePanel
 	QObject::connect(ui.helpButton, SIGNAL(toggled(bool)), this, SLOT(changeWhatsThisMode(bool)));
 
 	pHelpModeFilter = new HelpModeFilter();
@@ -59,6 +67,7 @@ SourceGameLounge::~SourceGameLounge()
 
 	if (cycleMasterThread.joinable())
 		cycleMasterThread.join();
+
 	if (cycleSlaveThread.joinable())
 		cycleSlaveThread.join();
 }
@@ -82,11 +91,11 @@ void SourceGameLounge::changeWhatsThisMode(bool checked) const
 	{
 		QWhatsThis::enterWhatsThisMode();
 
-		(*g_pApplication).installEventFilter(pHelpModeFilter);
+		pApplication->installEventFilter(pHelpModeFilter);
 	}
 	else
 	{
-		(*g_pApplication).removeEventFilter(pHelpModeFilter);
+		pApplication->removeEventFilter(pHelpModeFilter);
 
 		QWhatsThis::leaveWhatsThisMode();
 	}
@@ -101,20 +110,25 @@ void SourceGameLounge::setChecked(bool bChecked)
 	else
 		checkedString = std::string("e");
 
+	updateStyleSheet((checkedString + "Icon").c_str());
+}
+
+void SourceGameLounge::updateStyleSheet(const CHAR* iconSpecifier)
+{
 	ui.updateButton->setStyleSheet(QLatin1String(
 		"QPushButton {\n"
 		"    background-color: rgba(6, 6, 6, 100%);\n"
-		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(checkedString.c_str()) + QLatin1String("IconDisabled.png);\n"
+		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(iconSpecifier) + QLatin1String("Disabled.png);\n"
 		"}\n"
 		"\n"
 		"QPushButton:hover {\n"
 		"    background-color: rgba(34, 34, 34, 100%);\n"
-		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(checkedString.c_str()) + QLatin1String("Icon.png);\n"
+		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(iconSpecifier) + QLatin1String(".png);\n"
 		"}\n"
 		"\n"
 		"QPushButton:checked {\n"
 		"    background-color: rgba(34, 34, 34, 100%);\n"
-		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(checkedString.c_str()) + QLatin1String("Icon.png);\n"
+		"    border-image: url(:/sourceGameLounge/images/updat") + QLatin1String(iconSpecifier) + QLatin1String(".png);\n"
 		"}"));
 }
 
@@ -152,22 +166,7 @@ void SourceGameLounge::cycleSlave()
 
 		for (int iconNumber = 0; iconNumber <= 5; ++iconNumber)
 		{
-
-			ui.updateButton->setStyleSheet(QLatin1String(
-				"QPushButton {\n"
-				"    background-color: rgba(6, 6, 6, 100%);\n"
-				"    border-image: url(:/sourceGameLounge/images/updatingIcon") + QLatin1String(std::to_string(iconNumber).c_str()) + QLatin1String("Disabled.png);\n"
-				"}\n"
-				"\n"
-				"QPushButton:hover {\n"
-				"    background-color: rgba(34, 34, 34, 100%);\n"
-				"    border-image: url(:/sourceGameLounge/images/updatingIcon") + QLatin1String(std::to_string(iconNumber).c_str()) + QLatin1String(".png);\n"
-				"}\n"
-				"\n"
-				"QPushButton:checked {\n"
-				"    background-color: rgba(34, 34, 34, 100%);\n"
-				"    border-image: url(:/sourceGameLounge/images/updatingIcon") + QLatin1String(std::to_string(iconNumber).c_str()) + QLatin1String(".png);\n"
-				"}"));
+			updateStyleSheet(("ingIcon" + std::to_string(iconNumber)).c_str());
 
 			std::this_thread::sleep_for(std::chrono::milliseconds(250));
 		}
@@ -178,9 +177,10 @@ void SourceGameLounge::cycleSlave()
 
 bool HelpModeFilter::eventFilter(QObject *object, QEvent *event)
 {
-	if (object == (*g_pWindow).ui.helpButton && event->type() == QEvent::MouseButtonPress)
+	if (object == g_pWindow->ui.helpButton && event->type() == QEvent::MouseButtonPress)
 	{
-		(*g_pWindow).ui.helpButton->toggle();
+		g_pWindow->ui.helpButton->toggle();
+
 		return true;
 	}
 	else if (event->type() == QEvent::MouseButtonPress)
@@ -189,7 +189,7 @@ bool HelpModeFilter::eventFilter(QObject *object, QEvent *event)
 		QApplication::sendEvent(object, &qEvent);
 	}
 	else if (event->type() == QEvent::LeaveWhatsThisMode)
-		(*g_pWindow).ui.helpButton->toggle();
+		g_pWindow->ui.helpButton->toggle();
 
 	return QObject::eventFilter(object, event);
 }

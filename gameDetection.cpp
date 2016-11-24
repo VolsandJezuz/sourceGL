@@ -6,8 +6,6 @@
 
 namespace sgl {
 
-VOID CALLBACK waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired);
-
 EventSink::EventSink()
 {
 	m_lRef = 0;
@@ -209,7 +207,7 @@ bool GameDetection::wmiInitialize(bool initialize)
 	pUnsecApp = NULL;
 	hres = CoCreateInstance(CLSID_UnsecuredApartment, NULL, CLSCTX_LOCAL_SERVER, IID_IUnsecuredApartment, (void**)&pUnsecApp);
 
-	pSink = new EventSink;
+	pSink = new EventSink();
 	pSink->AddRef();
 
 	pStubUnk = NULL;
@@ -267,11 +265,35 @@ GameDetection::~GameDetection()
 	if (bWMI)
 		wmiCleanup();
 
-	while (!TryEnterCriticalSection(&GameDetection::instance().criticalSection))
+	while (!TryEnterCriticalSection(&instance().criticalSection))
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-	LeaveCriticalSection(&GameDetection::instance().criticalSection);
-	DeleteCriticalSection(&GameDetection::instance().criticalSection);
+	LeaveCriticalSection(&instance().criticalSection);
+	DeleteCriticalSection(&instance().criticalSection);
+}
+
+VOID CALLBACK GameDetection::waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired)
+{
+	displayError(instance().processName); // remove after testing
+
+	while (!instance().destructing)
+	{
+		if (!TryEnterCriticalSection(&instance().criticalSection))
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		else
+			break;
+	}
+
+	if (!instance().destructing)
+	{
+		instance().bProcessDetected = false;
+
+		LeaveCriticalSection(&instance().criticalSection);
+
+		instance().wmiInitialize();
+	}
+
+	CloseHandle(instance().hProcHandle);
 }
 
 void GameDetection::wmiCleanup()
@@ -286,30 +308,6 @@ void GameDetection::wmiCleanup()
 	CoUninitialize();
 
 	bWMI = false;
-}
-
-VOID CALLBACK waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired)
-{
-	displayError(GameDetection::instance().processName); // remove after testing
-
-	while (!GameDetection::instance().destructing)
-	{
-		if (!TryEnterCriticalSection(&GameDetection::instance().criticalSection))
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		else
-			break;
-	}
-
-	if (!GameDetection::instance().destructing)
-	{
-		GameDetection::instance().bProcessDetected = false;
-
-		LeaveCriticalSection(&GameDetection::instance().criticalSection);
-
-		GameDetection::instance().wmiInitialize();
-	}
-
-	CloseHandle(GameDetection::instance().hProcHandle);
 }
 
 } // namespace sgl

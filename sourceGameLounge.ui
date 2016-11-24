@@ -126,6 +126,9 @@
       <pointsize>8</pointsize>
      </font>
     </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(6, 6, 6);</string>
     </property>

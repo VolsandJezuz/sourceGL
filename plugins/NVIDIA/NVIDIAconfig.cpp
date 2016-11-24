@@ -1,5 +1,4 @@
 #include "NVIDIAconfig.h"
-#include "NVIDIA.h"
 #include "config.h"
 #include <boost/foreach.hpp>
 #include <boost/property_tree/ptree.hpp>
@@ -8,7 +7,7 @@
 
 namespace nvidia {
 
-NVIDIAconfig& NVIDIAconfig::instance()
+PLUGIN_NVIDIA_API NVIDIAconfig& NVIDIAconfig::instance()
 {
 	static NVIDIAconfig nvidiaConfig;
 	return nvidiaConfig;
@@ -30,6 +29,8 @@ void NVIDIAconfig::load(const std::string &filename)
 			nvidiaConfigVersion = currentNVIDIAconfigVersion;
 		}
 	}
+	// else
+		// possibly more function to get default values
 
 	BOOST_FOREACH(const std::string &game, *sgl::Config::instance().getGames())
 	{
@@ -44,7 +45,7 @@ void NVIDIAconfig::load(const std::string &filename)
 	}
 }
 
-void NVIDIAconfig::save(const std::string &filename)
+PLUGIN_NVIDIA_API void NVIDIAconfig::save(const std::string &filename)
 {
 	boost::property_tree::ptree pt;
 

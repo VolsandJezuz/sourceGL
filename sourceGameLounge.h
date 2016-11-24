@@ -16,14 +16,14 @@
 
 namespace sgl {
 
-class SourceGameLounge : public QMainWindow // SOURCEGAMELOUNGE_API if need access to main window for plugins
+class SourceGameLounge : public QMainWindow
 {
 	Q_OBJECT
 
 friend class HelpModeFilter;
 
 public:
-	SourceGameLounge(QWidget *parent = 0);
+	SourceGameLounge(QApplication* pApplication, QWidget* parent = 0);
 	~SourceGameLounge();
 
 	QStackedLayout* pStackedLayout;
@@ -34,9 +34,11 @@ private slots:
 
 private:
 	void setChecked(bool bChecked);
+	void updateStyleSheet(const CHAR* iconSpecifier);
 	void cycleMaster();
 	void cycleSlave();
 
+	QApplication* pApplication;
 	Ui::SourceGameLoungeClass ui;
 	QSignalMapper* pSignalMapper;
 	HelpModeFilter* pHelpModeFilter;
@@ -59,7 +61,6 @@ public:
 
 extern "C" SOURCEGAMELOUNGE_API void displayError(LPCWSTR pwszError);
 extern "C" SOURCEGAMELOUNGE_API void displayErrorA(LPCSTR pszError);
-extern QApplication* g_pApplication;
 extern sgl::SourceGameLounge* g_pWindow;
 
 #endif // SOURCEGAMELOUNGE_H

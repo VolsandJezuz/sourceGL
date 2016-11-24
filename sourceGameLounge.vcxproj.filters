@@ -51,6 +51,9 @@
     <ClCompile Include="setup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_setup.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="sourceGameLounge.h">
@@ -61,6 +64,12 @@
     </CustomBuild>
     <CustomBuild Include="sourceGameLounge.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="setup.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="setup.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -76,8 +85,8 @@
     <ClInclude Include="gameDetection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="setup.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GeneratedFiles\ui_setup.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

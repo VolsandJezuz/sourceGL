@@ -45,6 +45,7 @@ public:
 private:
 	GameDetection();
 	~GameDetection();
+	static VOID CALLBACK waitOrTimerCallback(PVOID lpParameter, BOOLEAN timerOrWaitFired);
 	void wmiCleanup();
 
 	bool bCIS;

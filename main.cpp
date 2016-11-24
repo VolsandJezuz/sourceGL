@@ -5,33 +5,34 @@
 #include "pluginManager.h"
 #include <vector>
 
-QApplication* g_pApplication;
-sgl::SourceGameLounge* g_pWindow;
+#define LOAD false
+#define SAVE true
+
+sgl::SourceGameLounge* g_pWindow = NULL;
+
+void config(bool save)
+{
+	try
+	{
+		if (save)
+			sgl::Config::instance().save(".\\configs\\config.xml");
+		else
+			sgl::Config::instance().load(".\\configs\\config.xml");
+	}
+	catch (std::exception &e)
+	{
+		displayErrorA(e.what());
+	}
+}
 
 int main(int argc, char *argv[])
 {
 	HRESULT hres = CoInitializeEx(0, COINIT_MULTITHREADED);
 
-	g_pApplication = new QApplication(argc, argv);
-	g_pWindow = new sgl::SourceGameLounge();
+	QApplication application(argc, argv);
 
-	try
-	{
-		sgl::Config::instance().load(".\\configs\\config.xml");
-	}
-	catch (std::exception &e)
-	{
-		displayErrorA(e.what());
-	}
-
-	try
-	{
-		sgl::Config::instance().save(".\\configs\\config.xml");
-	}
-	catch (std::exception &e)
-	{
-		displayErrorA(e.what());
-	}
+	config(LOAD);
+	config(SAVE);
 
 	std::vector<commondll::Plugin*> plugins;
 	WIN32_FIND_DATA fileData;
@@ -49,30 +50,30 @@ int main(int argc, char *argv[])
 		} while (FindNextFile(fileHandle, &fileData));
 	}
 
-	sgl::Setup::instance().initialSetup();
+	int ret = 1;
 
-	if (!sgl::GameDetection::instance().wmiInitialize(true))
-		return true;
-
-	(*g_pWindow).show();
-	int ret = (*g_pApplication).exec();
-
-	try
+	if (sgl::GameDetection::instance().wmiInitialize(true))
 	{
-		sgl::Config::instance().save(".\\configs\\config.xml");
+		g_pWindow = new sgl::SourceGameLounge(&application);
+		g_pWindow->show();
+
+		sgl::SetupPre* setupPre = new sgl::SetupPre();
+		if (!setupPre->initialSetup())
+			setupPre->pSetup->exec();
+
+		delete setupPre;
+		setupPre = NULL;
+
+		ret = application.exec();
+
+		delete g_pWindow;
+		g_pWindow = NULL;
 	}
-	catch (std::exception &e)
-	{
-		displayErrorA(e.what());
-	}
+
+	config(SAVE);
 
 	for (commondll::Plugin* plugin : plugins)
 		commondll::PluginManager::instance().unloadPlugin(plugin);
-
-	delete g_pWindow;
-	g_pWindow = NULL;
-	delete g_pApplication;
-	g_pApplication = NULL;
 
 	return ret;
 }

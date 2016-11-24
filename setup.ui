@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Setup</class>
+ <widget class="QDialog" name="Setup">
+  <property name="objectName" >
+   <string notr="true">Setup</string>
+  </property>
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>400</width>
+    <height>300</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>sourceGameLounge - First Time Setup</string>
+  </property>
+  <widget class="QLabel" name="topText">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>380</width>
+     <height>13</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>380</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="text">
+    <string>TextLabel</string>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::NoTextInteraction</set>
+   </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>120</y>
+     <width>120</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="lineWidth">
+    <number>0</number>
+   </property>
+   <property name="widgetResizable">
+    <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>118</width>
+      <height>78</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

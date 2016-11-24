@@ -60,7 +60,7 @@
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration);$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>commonDLL.lib;wbemuuid.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>commonDLL.lib;wbemuuid.lib;qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;Qt5Network.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <Version>
       </Version>
       <LargeAddressAware>false</LargeAddressAware>
@@ -87,12 +87,12 @@
     </ProjectReference>
     <CustomBuildStep>
       <Outputs>.\program-dir\configs\config.xml;.\program-dir\sourceGameLounge.exe</Outputs>
-      <Command>del /f /q .\sourceGameLounge.vcxproj.user
-(echo ^&lt;?xml version="1.0" encoding="utf-8"?^&gt; &amp;&amp; echo ^&lt;Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"^&gt; &amp;&amp; echo   ^&lt;PropertyGroup Condition="'$(Configuration)^|$(Platform)'=='Release^|Win32'"^&gt; &amp;&amp; echo     ^&lt;QTDIR^&gt;C:^\Qt^\Qt5.7.0^\5.7^\msvc2013^&lt;/QTDIR^&gt; &amp;&amp; echo     ^&lt;BOOSTDIR^&gt;C:^\Program Files^\boost^\boost_1_62_0^&lt;/BOOSTDIR^&gt; &amp;&amp; echo     ^&lt;LocalDebuggerEnvironment^&gt;^&lt;/LocalDebuggerEnvironment^&gt; &amp;&amp; echo     ^&lt;DebuggerFlavor^&gt;WindowsLocalDebugger^&lt;/DebuggerFlavor^&gt; &amp;&amp; echo   ^&lt;/PropertyGroup^&gt; &amp;&amp; echo ^&lt;/Project^&gt;) &gt; .\sourceGameLounge.vcxproj.user
-set sglexe=.\program-dir\sourceGameLounge.exe
+      <Command>del /f /q ".\sourceGameLounge.vcxproj.user"
+(echo ^&lt;?xml version="1.0" encoding="utf-8"?^&gt; &amp;&amp; echo ^&lt;Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"^&gt; &amp;&amp; echo   ^&lt;PropertyGroup Condition="'$(Configuration)^|$(Platform)'=='Release^|Win32'"^&gt; &amp;&amp; echo     ^&lt;QTDIR^&gt;C:^\Qt^\Qt5.7.0^\5.7^\msvc2013^&lt;/QTDIR^&gt; &amp;&amp; echo     ^&lt;BOOSTDIR^&gt;C:^\Program Files^\boost^\boost_1_62_0^&lt;/BOOSTDIR^&gt; &amp;&amp; echo     ^&lt;LocalDebuggerEnvironment^&gt;^&lt;/LocalDebuggerEnvironment^&gt; &amp;&amp; echo     ^&lt;DebuggerFlavor^&gt;WindowsLocalDebugger^&lt;/DebuggerFlavor^&gt; &amp;&amp; echo   ^&lt;/PropertyGroup^&gt; &amp;&amp; echo ^&lt;/Project^&gt;) &gt; ".\sourceGameLounge.vcxproj.user"
+set sglexe=".\program-dir\sourceGameLounge.exe"
 if exist %sglexe% del /f /q %sglexe%
-copy /y /b $(SolutionDir)$(Configuration)\sourceGameLounge.exe %sglexe%
-set config=.\program-dir\configs\config.xml
+copy /y /b "$(SolutionDir)$(Configuration)\sourceGameLounge.exe" %sglexe%
+set config=".\program-dir\configs\config.xml"
 if exist %config% del /f /q %config%</Command>
     </CustomBuildStep>
     <CustomBuild>
@@ -106,6 +106,7 @@ if exist %config% del /f /q %config%</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_setup.cpp" />
     <ClCompile Include="GeneratedFiles\Release\moc_sourceGameLounge.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="setup.cpp" />
@@ -131,8 +132,14 @@ if exist %config% del /f /q %config%</Command>
     <ClInclude Include="c99defs.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="gameDetection.h" />
+    <ClInclude Include="GeneratedFiles\ui_setup.h" />
     <ClInclude Include="GeneratedFiles\ui_sourceGameLounge.h" />
-    <ClInclude Include="setup.h" />
+    <CustomBuild Include="setup.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing setup.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DWIN32 -D_WINDOWS -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -DSOURCEGAMELOUNGE_EXPORTS -D_UNICODE -DUNICODE "-I.\commonDLL" "-I$(BOOSTDIR)\." "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets"</Command>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="sourceGameLounge.qrc">
@@ -144,6 +151,14 @@ if exist %config% del /f /q %config%</Command>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="sourceGameLounge.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="setup.ui">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

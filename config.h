@@ -11,6 +11,12 @@
 #define SOURCEGAMELOUNGE_API __declspec(dllimport)
 #endif // SOURCEGAMELOUNGE_EXPORTS
 
+#define SOURCEGAMELOUNGE_API_MAJOR_VER 0
+#define SOURCEGAMELOUNGE_API_MINOR_VER 2
+#define SOURCEGAMELOUNGE_API_PATCH_VER 6
+#define MAKE_SEMANTIC_VERSION(major, minor, patch) ((major << 24) | (minor << 16) | patch)
+#define SOURCEGAMELOUNGE_API_VER MAKE_SEMANTIC_VERSION(SOURCEGAMELOUNGE_API_MAJOR_VER, SOURCEGAMELOUNGE_API_MINOR_VER, SOURCEGAMELOUNGE_API_PATCH_VER)
+
 namespace sgl {
 
 class Config
@@ -23,6 +29,8 @@ public:
 
 	uint32_t configVersion;
 	uint32_t steam32ID;
+	std::vector<int> gameAppIDs;
+	std::vector<std::string> gameFileLocations;
 	bool optOutSteamID;
 	bool runAtWindowsStartup;
 	bool minToTrayStartup;

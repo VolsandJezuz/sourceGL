@@ -81,9 +81,9 @@
       </Command>
     </PostBuildEvent>
     <CustomBuildStep>
-      <Command>set commondll=..\program-dir\commonDLL.dll
+      <Command>set commondll="..\program-dir\commonDLL.dll"
 if exist %commondll% del /f /q %commondll%
-copy /y /b $(SolutionDir)$(Configuration)\commonDLL.dll %commondll%</Command>
+copy /y /b "$(SolutionDir)$(Configuration)\commonDLL.dll" %commondll%</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Outputs>..\program-dir\commonDLL.dll;%(Outputs)</Outputs>

@@ -76,6 +76,7 @@ COMMONDLL_API void PluginManager::unloadPlugin(Plugin*& plugin)
 
 			HMODULE hModule = iter->second;
 			fnDestroyPlugin destroyPlugin = (fnDestroyPlugin)GetProcAddress(hModule, "destroyPlugin");
+
 			if (destroyPlugin != NULL)
 				destroyPlugin();
 			else
